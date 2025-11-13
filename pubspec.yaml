@@ -1,0 +1,32 @@
+name: savingmantra
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.0-290.4.beta
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5+1
+  shared_preferences: ^2.5.3
+  flutter_riverpod: ^3.0.3
+  equatable: ^2.0.7
+  get_it: ^9.0.5
+  dio: ^5.9.0
+  logger: ^2.6.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  build_runner: ^2.10.2
+
+flutter:
+
+  uses-material-design: true
