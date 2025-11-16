@@ -1,13 +1,21 @@
-import 'package:savingmantra/data/models/user_model.dart';
-
 abstract class IAuthRepository {
-  Future<UserModel> login(String email, String password);
+  Future<Map<String, dynamic>> sendOTP(String phoneNumber, String loginType);
 
-  Future<UserModel> register(String name, String email, String password);
+  Future<Map<String, dynamic>> sendRegisterOTP(String phoneNumber, String loginType);
 
-  Future<void> logout();
+  Future<Map<String, dynamic>> verifyOTP(String authToken, String phoneNumber, String otp);
 
-  Future<UserModel> getProfile();
+  Future<Map<String, dynamic>> verifyRegisterOTP(String authToken, String phoneNumber, String otp);
 
-  Future<bool> isLoggedIn();
+  Future<Map<String, dynamic>> registerUser({
+    required String authToken,
+    required String phoneNumber,
+    required String fullName,
+    required String email,
+    required String countryId,
+    required String city,
+    required String authPin,
+  });
+
+  Future<Map<String, dynamic>> getCountries();
 }

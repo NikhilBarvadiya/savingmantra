@@ -1,90 +1,210 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
-import 'package:savingmantra/data/models/user_model.dart';
+import 'package:savingmantra/data/datasources/local_storage.dart';
 import 'package:savingmantra/domain/repositories/auth_repository.dart';
+import 'package:savingmantra/domain/repositories/i_auth_repository.dart';
+
+// Using Riverpod 2.x Notifier pattern
+
+class Country {
+  final String id;
+  final String name;
+
+  Country({required this.id, required this.name});
+}
 
 class AuthState {
   final bool isLoading;
-  final UserModel? user;
+  final String? phoneNumber;
+  final String? authToken;
   final String? error;
+  final List<Country> countries;
+  final bool isLoadingCountries;
 
-  AuthState({this.isLoading = false, this.user, this.error});
+  AuthState({
+    this.isLoading = false,
+    this.phoneNumber,
+    this.authToken,
+    this.error,
+    this.countries = const [],
+    this.isLoadingCountries = false,
+  });
 
-  AuthState copyWith({bool? isLoading, UserModel? user, String? error}) {
-    return AuthState(isLoading: isLoading ?? this.isLoading, user: user ?? this.user, error: error ?? this.error);
+  AuthState copyWith({
+    bool? isLoading,
+    String? phoneNumber,
+    String? authToken,
+    String? error,
+    List<Country>? countries,
+    bool? isLoadingCountries,
+  }) {
+    return AuthState(
+      isLoading: isLoading ?? this.isLoading,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      authToken: authToken ?? this.authToken,
+      error: error ?? this.error,
+      countries: countries ?? this.countries,
+      isLoadingCountries: isLoadingCountries ?? this.isLoadingCountries,
+    );
   }
 }
 
-class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository _authRepository;
+class AuthNotifier extends Notifier<AuthState> {
+  @override
+  AuthState build() => AuthState();
 
-  AuthNotifier(this._authRepository) : super(AuthState());
+  IAuthRepository get _authRepository => AuthRepository();
 
-  Future<void> login(String email, String password) async {
+  Future<void> sendLoginOTP(String phoneNumber) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
-      final user = await _authRepository.login(email, password);
-      state = state.copyWith(isLoading: false, user: user);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-      rethrow;
-    }
-  }
-
-  Future<void> register(String name, String email, String password) async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final user = await _authRepository.register(name, email, password);
-      state = state.copyWith(isLoading: false, user: user);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-      rethrow;
-    }
-  }
-
-  Future<void> forgotPassword(String email) async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await _authRepository.forgotPassword(email);
-      state = state.copyWith(isLoading: false);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-      rethrow;
-    }
-  }
-
-  Future<void> logout() async {
-    state = state.copyWith(isLoading: true);
-    try {
-      await _authRepository.logout();
-      state = AuthState();
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-      rethrow;
-    }
-  }
-
-  Future<void> checkAuthStatus() async {
-    state = state.copyWith(isLoading: true);
-    try {
-      final isLoggedIn = await _authRepository.isLoggedIn();
-      if (isLoggedIn) {
-        final user = await _authRepository.getProfile();
-        state = state.copyWith(isLoading: false, user: user);
+      final result = await _authRepository.sendOTP(phoneNumber, "client");
+      
+      if (result['ErrorMsg'] == "success" || result['ErrorMsg'] == "successsendtoregister") {
+        state = state.copyWith(
+          isLoading: false,
+          phoneNumber: phoneNumber,
+          authToken: result['Auth'],
+        );
       } else {
-        state = state.copyWith(isLoading: false);
+        throw Exception(result['ErrorMsg'] ?? 'Failed to send OTP');
       }
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
+      rethrow;
     }
+  }
+
+  Future<void> sendRegisterOTP(String phoneNumber) async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final result = await _authRepository.sendRegisterOTP(phoneNumber, "client");
+      
+      if (result['ErrorMsg'] == "success") {
+        state = state.copyWith(
+          isLoading: false,
+          phoneNumber: phoneNumber,
+          authToken: result['Auth'],
+        );
+      } else {
+        throw Exception(result['ErrorMsg'] ?? 'Failed to send registration OTP');
+      }
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> verifyLoginOTP(String otp) async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final result = await _authRepository.verifyOTP(
+        state.authToken!,
+        state.phoneNumber!,
+        otp,
+      );
+      
+      if (result['ErrorMsg'] == "success") {
+        final authToken = result['Auth'];
+        
+        // Save login state
+        await LocalStorage.setToken(authToken);
+        await LocalStorage.setLoggedIn(true);
+        
+        state = state.copyWith(isLoading: false, authToken: authToken);
+      } else {
+        throw Exception(result['ErrorMsg'] ?? 'Invalid OTP');
+      }
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> verifyRegisterOTP(String otp) async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final result = await _authRepository.verifyRegisterOTP(
+        state.authToken!,
+        state.phoneNumber!,
+        otp,
+      );
+      
+      if (result['ErrorMsg'] == "success") {
+        state = state.copyWith(
+          isLoading: false,
+          authToken: result['Auth'],
+        );
+      } else {
+        throw Exception(result['ErrorMsg'] ?? 'Invalid OTP');
+      }
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> getCountries() async {
+    state = state.copyWith(isLoadingCountries: true);
+    try {
+      final result = await _authRepository.getCountries();
+      
+      List<Country> countries = [];
+      if (result['data'] is List) {
+        for (var data in result['data']) {
+          countries.add(Country(
+            id: data['CountryID'].toString(),
+            name: data['CountryName'] ?? '',
+          ));
+        }
+      }
+      
+      state = state.copyWith(
+        countries: countries,
+        isLoadingCountries: false,
+      );
+    } catch (e) {
+      state = state.copyWith(isLoadingCountries: false, error: e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> registerUser({
+    required String fullName,
+    required String email,
+    required String countryId,
+    required String city,
+    required String authPin,
+  }) async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final result = await _authRepository.registerUser(
+        authToken: state.authToken!,
+        phoneNumber: state.phoneNumber!,
+        fullName: fullName,
+        email: email,
+        countryId: countryId,
+        city: city,
+        authPin: authPin,
+      );
+      
+      if (result['ErrorMsg'] == "success") {
+        state = state.copyWith(isLoading: false);
+      } else {
+        throw Exception(result['ErrorMsg'] ?? 'Registration failed');
+      }
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+      rethrow;
+    }
+  }
+
+  void clearError() {
+    state = state.copyWith(error: null);
+  }
+
+  void reset() {
+    state = AuthState();
   }
 }
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  final authRepository = ref.watch(authRepositoryProvider);
-  return AuthNotifier(authRepository);
-});
-
-final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepository();
-});
+final authProvider = NotifierProvider<AuthNotifier, AuthState>(AuthNotifier.new);

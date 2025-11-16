@@ -54,7 +54,6 @@ class ApiService {
     }
   }
 
-  // Generic PUT method
   Future<dynamic> put(String endpoint, dynamic data) async {
     try {
       final response = await _dio.put(endpoint, data: data);

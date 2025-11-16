@@ -4,7 +4,6 @@ import 'package:savingmantra/core/constants/app_constants.dart';
 import 'package:savingmantra/core/themes/app_theme.dart';
 import 'package:savingmantra/data/datasources/api_service.dart';
 import 'package:savingmantra/data/datasources/local_storage.dart';
-import 'package:savingmantra/presentation/pages/auth/forgot_password.dart';
 import 'package:savingmantra/presentation/pages/auth/login_page.dart';
 import 'package:savingmantra/presentation/pages/home/home.dart';
 import 'package:toastification/toastification.dart';
@@ -27,8 +26,11 @@ class MyApp extends ConsumerWidget {
         title: AppConstants.appName,
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        home: LocalStorage.isLoggedIn() ? HomePage() : const LoginPage(),
-        routes: {'/login': (context) => const LoginPage(), '/forgot-password': (context) => const ForgotPasswordPage(), '/home': (context) => const HomePage()},
+        home: LocalStorage.isLoggedIn() ? const HomePage() : const LoginPage(),
+        routes: {
+          '/login': (context) => const LoginPage(),
+          '/home': (context) => const HomePage(),
+        },
       ),
     );
   }
