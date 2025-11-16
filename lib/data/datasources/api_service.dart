@@ -74,6 +74,9 @@ class ApiService {
   }
 
   dynamic _handleResponse(Response response) {
+    if (response.data["Status"] == "Error") {
+      throw Exception('API Error: ${response.statusCode}');
+    }
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return response.data;
     } else {

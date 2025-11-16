@@ -1,6 +1,7 @@
 class ApiConstants {
   static const String baseUrl = 'http://advisor.careai.in/';
   static const String login = 'mclienthome/MobileLoginWithEmail';
+  static const String forgotPassword = 'forgotPassword';
   static const String register = 'ClientAPI/ClientRegistration';
 
   static const Duration connectTimeout = Duration(seconds: 30);

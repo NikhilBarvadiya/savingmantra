@@ -195,7 +195,6 @@ class LoginPage extends ConsumerWidget {
 
   Widget _buildFormHeader(Size size, bool isMobile) {
     if (isMobile) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

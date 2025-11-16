@@ -25,7 +25,7 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<UserModel> register(String name, String email, String password) async {
     try {
-      final response = await _apiService.post('/auth/register', {'name': name, 'email': email, 'password': password});
+      final response = await _apiService.post(ApiConstants.register, {'name': name, 'email': email, 'password': password});
       final user = UserModel.fromJson(response['user']);
       final token = response['token'];
       await LocalStorage.setToken(token);
@@ -35,6 +35,10 @@ class AuthRepository implements IAuthRepository {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    await _apiService.post(ApiConstants.forgotPassword, {'email': email});
   }
 
   @override

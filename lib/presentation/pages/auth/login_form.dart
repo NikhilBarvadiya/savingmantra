@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savingmantra/core/themes/colors.dart';
+import 'package:savingmantra/core/utils/app_toast.dart';
 import 'package:savingmantra/core/utils/validators.dart';
 import 'package:savingmantra/presentation/providers/auth_provider.dart';
 import 'package:savingmantra/presentation/widgets/common/custom_button.dart';
@@ -50,62 +51,15 @@ class _LoginFormState extends ConsumerState<LoginForm> with SingleTickerProvider
       final authNotifier = ref.read(authProvider.notifier);
       try {
         await authNotifier.login(_emailController.text.trim(), _passwordController.text.trim());
+        appToast.successToast(txt: 'Login successful! Redirecting...');
+        await Future.delayed(const Duration(milliseconds: 500));
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
-                    child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text('Login successful! Redirecting...', style: TextStyle(fontWeight: FontWeight.w600)),
-                ],
-              ),
-              backgroundColor: AppColors.success,
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              margin: const EdgeInsets.all(16),
-            ),
-          );
-          await Future.delayed(const Duration(milliseconds: 500));
-          if (mounted) {
-            Navigator.pushReplacementNamed(context, '/home');
-          }
+          Navigator.pushReplacementNamed(context, '/home');
         }
       } catch (e) {
-        if (mounted) {
-          _showErrorSnackbar(e.toString());
-        }
+        appToast.internalServerError(e.toString());
       }
     }
-  }
-
-  void _showErrorSnackbar(String error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
-              child: const Icon(Icons.error_outline_rounded, color: Colors.white, size: 20),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(error, style: const TextStyle(fontWeight: FontWeight.w600)),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.all(16),
-        duration: const Duration(seconds: 4),
-      ),
-    );
   }
 
   @override
