@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
         title: AppConstants.appName,
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        home: LocalStorage.isLoggedIn() ? const HomePage() : const LoginPage(),
+        home: !LocalStorage.isLoggedIn() ? const HomePage() : const LoginPage(),
         routes: {
           '/login': (context) => const LoginPage(),
           '/home': (context) => const HomePage(),
