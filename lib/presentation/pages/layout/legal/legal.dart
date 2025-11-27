@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class LegalPage extends StatelessWidget {
   const LegalPage({super.key});
@@ -7,88 +8,16 @@ class LegalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Legal',
+        subtitle: 'Legal services and contract management',
+        leadingIcon: Icons.gavel_outlined,
+        customActions: [AppBarActionButton(label: 'Apply Service', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.gavel_outlined, color: Colors.white, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Legal Services Dashboard',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Apply for new legal services and track the status of your existing requests',
-                  style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFFE5E7EB)),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.help_outline, size: 16, color: Color(0xFF6B7280)),
-                      SizedBox(width: 8),
-                      Text(
-                        'Help & FAQs',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF374151)),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                    boxShadow: [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))],
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.add, color: Colors.white, size: 16),
-                      SizedBox(width: 8),
-                      Text(
-                        'New Legal Enquiry',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 

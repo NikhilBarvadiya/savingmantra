@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class ReportsPage extends StatelessWidget {
   const ReportsPage({super.key});
@@ -7,66 +8,22 @@ class ReportsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: Column(
-        children: [
-          _buildHeaderWithExport(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildFinancialMetrics(),
-                  const SizedBox(height: 32),
-                  _buildReportsCategories(),
-                  const SizedBox(height: 32),
-                  _buildRecentReports(),
-                  const SizedBox(height: 40),
-                  _buildFooter(),
-                ],
-              ),
-            ),
-          ),
+      appBar: CustomAppBar(
+        title: 'Reports',
+        subtitle: 'Analytical reports and insights',
+        leadingIcon: Icons.analytics_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Export All', icon: Icons.download_outlined, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'Generate Report', icon: Icons.add_chart, onPressed: () {}, isPrimary: true),
         ],
       ),
-    );
-  }
-
-  Widget _buildHeaderWithExport() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade100, width: 1)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Accounting · Reports & Analytics",
-                  style: TextStyle(fontSize: 13, color: Colors.grey[600], fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "Financial Reports & Insights",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: const Color(0xFF111827)),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              _ReportActionButton(icon: Icons.calendar_today_rounded, text: "Nov 2025", onTap: () {}),
-              const SizedBox(width: 12),
-              _ReportActionButton(icon: Icons.download_rounded, text: "Export", onTap: () {}),
-              const SizedBox(width: 12),
-              _ReportActionButton(icon: Icons.print_rounded, text: "Print", onTap: () {}),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [_buildFinancialMetrics(), const SizedBox(height: 32), _buildReportsCategories(), const SizedBox(height: 32), _buildRecentReports(), const SizedBox(height: 40), _buildFooter()],
+        ),
       ),
     );
   }
@@ -269,40 +226,6 @@ class ReportsPage extends StatelessWidget {
   Widget _buildFooter() {
     return const Center(
       child: Text("© 2025 Saving Mantra — Reports & Analytics", style: TextStyle(fontSize: 12, color: Color(0xFF9CA3AF))),
-    );
-  }
-}
-
-class _ReportActionButton extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final VoidCallback onTap;
-
-  const _ReportActionButton({required this.icon, required this.text, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 16, color: const Color(0xFF374151)),
-            const SizedBox(width: 8),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF374151)),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

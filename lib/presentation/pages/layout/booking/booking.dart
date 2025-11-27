@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:savingmantra/presentation/pages/layout/booking/ui/new_booking.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class BookingPage extends StatelessWidget {
   const BookingPage({super.key});
@@ -7,11 +7,7 @@ class BookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const bg = Color(0xFFF7F8FB);
-    const cardBg = Colors.white;
-    const ink = Color(0xFF0F172A);
     const brand = Color(0xFF0E5E83);
-    const accent = Color(0xFFE67E22);
-    const border = Color(0xFFE2E8F0);
     const muted = Color(0xFF6B7280);
     const success = Color(0xFF10B981);
     const warning = Color(0xFFF59E0B);
@@ -19,87 +15,14 @@ class BookingPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: bg,
+      appBar: CustomAppBar(
+        title: 'Booking Dashboard',
+        subtitle: 'Schedule and manage appointments',
+        leadingIcon: Icons.calendar_today_outlined,
+        customActions: [AppBarActionButton(label: 'New Booking', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            decoration: const BoxDecoration(
-              color: cardBg,
-              border: Border(bottom: BorderSide(color: Color(0xFFE5E7EB))),
-              boxShadow: [BoxShadow(color: Color(0x08000000), blurRadius: 8, offset: Offset(0, 2))],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(color: brand.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
-                          child: const Text(
-                            'Client Dashboard',
-                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: brand),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text('Booking', style: TextStyle(fontSize: 12, color: muted)),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      'Booking Dashboard',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: ink),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: bg,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: border),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.calendar_today, size: 16, color: muted),
-                          const SizedBox(width: 8),
-                          Text('Today', style: TextStyle(fontSize: 13, color: muted)),
-                          const SizedBox(width: 4),
-                          Icon(Icons.arrow_drop_down, size: 16, color: muted),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: accent,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        shadowColor: Colors.transparent,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const NewBookingPage()));
-                      },
-                      child: const Row(
-                        children: [
-                          Icon(Icons.add, size: 16),
-                          SizedBox(width: 6),
-                          Text('New Booking', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),

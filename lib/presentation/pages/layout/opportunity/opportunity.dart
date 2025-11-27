@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class OpportunityPage extends StatefulWidget {
   const OpportunityPage({super.key});
@@ -23,27 +24,20 @@ class _OpportunityPageState extends State<OpportunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Opportunity Dashboard',
+        subtitle: 'Track and manage business opportunities',
+        leadingIcon: Icons.trending_up_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Export', icon: Icons.download_outlined, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'New Opportunity', icon: Icons.add, onPressed: () {}, isPrimary: true),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildKPISection(), const SizedBox(height: 32), _buildMainContent()]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildKPISection(), const SizedBox(height: 32), _buildMainContent()]),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Opportunity Dashboard',
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Manage and track your business opportunities in one place',
-          style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-        ),
-      ],
     );
   }
 

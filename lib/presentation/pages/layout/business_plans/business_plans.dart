@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class BusinessPlansPage extends StatelessWidget {
   const BusinessPlansPage({super.key});
@@ -7,85 +8,24 @@ class BusinessPlansPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff7f8fb),
+      appBar: CustomAppBar(
+        title: 'Biz Plan',
+        subtitle: 'Business planning and strategy',
+        leadingIcon: Icons.lightbulb_outline,
+        customActions: [
+          AppBarActionButton(label: 'Download Report', icon: Icons.download, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'New Business Plan', icon: Icons.add, onPressed: () {}, isPrimary: true),
+        ],
+      ),
       body: Column(
         children: const [
-          _Header(),
           Expanded(
             child: SingleChildScrollView(padding: EdgeInsets.all(16), child: _Content()),
           ),
           _Footer(),
         ],
       ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(0, 2))],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Expanded(child: _HeaderText()),
-          Row(
-            children: [
-              _ActionButton(label: 'New Business Plan', icon: Icons.add, filled: true, onPressed: () {}),
-              const SizedBox(width: 12),
-              _ActionButton(label: 'Download Report', icon: Icons.download, onPressed: () {}),
-              const SizedBox(width: 12),
-              _NotificationButton(),
-              const SizedBox(width: 8),
-              _ProfileButton(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _HeaderText extends StatelessWidget {
-  const _HeaderText();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-              child: const Text(
-                'Business Planning',
-                style: TextStyle(fontSize: 11, color: Color(0xFF0E5E83), fontWeight: FontWeight.w600),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'Business Growth Plans',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
-        ),
-        const SizedBox(height: 8),
-        const SizedBox(
-          width: 600,
-          child: Text(
-            'Strategize, execute and track your business growth with comprehensive planning tools and real-time analytics.',
-            style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), height: 1.5),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -551,20 +491,19 @@ class _Footer extends StatelessWidget {
 class _ActionButton extends StatelessWidget {
   final String label;
   final IconData icon;
-  final bool filled;
   final bool small;
   final VoidCallback onPressed;
 
-  const _ActionButton({required this.label, required this.icon, required this.onPressed, this.filled = false, this.small = false});
+  const _ActionButton({required this.label, required this.icon, required this.onPressed, this.small = false});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: filled ? const Color(0xFF0E5E83) : Colors.transparent,
-        foregroundColor: filled ? Colors.white : const Color(0xFF0E5E83),
-        side: BorderSide(color: filled ? const Color(0xFF0E5E83) : const Color(0xFFD1D5DB)),
+        backgroundColor: const Color(0xFF0E5E83),
+        foregroundColor: Colors.white,
+        side: const BorderSide(color: Color(0xFF0E5E83)),
         padding: small ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8) : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 0,
@@ -573,53 +512,6 @@ class _ActionButton extends StatelessWidget {
       label: Text(
         label,
         style: TextStyle(fontSize: small ? 12 : 14, fontWeight: FontWeight.w500),
-      ),
-    );
-  }
-}
-
-class _NotificationButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(10)),
-          child: IconButton(
-            icon: const Icon(Icons.notifications, size: 20, color: Color(0xFF6B7280)),
-            onPressed: () {},
-          ),
-        ),
-        Positioned(
-          top: 8,
-          right: 8,
-          child: Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: const Color(0xFFEF4444),
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 1),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ProfileButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(10)),
-      child: IconButton(
-        icon: const Icon(Icons.person, size: 20, color: Color(0xFF6B7280)),
-        onPressed: () {},
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class ClientPage extends StatelessWidget {
   const ClientPage({super.key});
@@ -7,40 +8,14 @@ class ClientPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: const CustomAppBar(title: 'Client Dashboard', subtitle: 'Overview of all client activities and metrics', leadingIcon: Icons.dashboard_outlined),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildQuickStats(),
-            const SizedBox(height: 32),
-            _buildAdvisorSection(),
-            const SizedBox(height: 32),
-            _buildServicesSection(),
-            const SizedBox(height: 32),
-            _buildRecentActivity(),
-          ],
+          children: [_buildQuickStats(), const SizedBox(height: 32), _buildAdvisorSection(), const SizedBox(height: 32), _buildServicesSection(), const SizedBox(height: 32), _buildRecentActivity()],
         ),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Welcome back, Anupam 👋',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Here\'s what\'s happening with your business today',
-          style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-        ),
-      ],
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class AccountingPage extends StatelessWidget {
   const AccountingPage({super.key});
@@ -7,35 +8,16 @@ class AccountingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Accounting Workspace',
+        subtitle: 'Financial management and accounting tools',
+        leadingIcon: Icons.account_balance_wallet_outlined,
+        customActions: [AppBarActionButton(label: 'New Entry', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_buildHeader(), const SizedBox(height: 32), _buildKPIGrid(), const SizedBox(height: 32), _buildMainContentCard(), const SizedBox(height: 40), _buildFooter()],
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildKPIGrid(), const SizedBox(height: 32), _buildMainContentCard(), const SizedBox(height: 40), _buildFooter()]),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Client Dashboard · Accounting",
-          style: TextStyle(fontSize: 13, color: Colors.grey[600], fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "Accounting Workspace",
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "Manage your financial records, track receivables and payables, and maintain compliance",
-          style: TextStyle(fontSize: 14, color: Colors.grey[600], fontWeight: FontWeight.w400),
-        ),
-      ],
     );
   }
 

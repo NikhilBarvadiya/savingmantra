@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class CompliancePage extends StatefulWidget {
   const CompliancePage({super.key});
@@ -37,46 +38,16 @@ class _CompliancePageState extends State<CompliancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Compliances',
+        subtitle: 'Ensure regulatory compliance and documentation',
+        leadingIcon: Icons.verified_outlined,
+        customActions: [AppBarActionButton(label: 'Apply', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildKPISection(), const SizedBox(height: 32), _buildMainContent()]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildKPISection(), const SizedBox(height: 32), _buildMainContent()]),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.verified_user_outlined, color: Colors.white, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Compliance Dashboard',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Manage all statutory, MCA, and labor compliances in one workspace',
-                  style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 
@@ -134,7 +105,6 @@ class _CompliancePageState extends State<CompliancePage> {
       children: [
         Expanded(flex: 2, child: _buildComplianceCategories()),
         const SizedBox(width: 24),
-
         Expanded(flex: 3, child: _buildComplianceStatus()),
       ],
     );
@@ -169,10 +139,8 @@ class _CompliancePageState extends State<CompliancePage> {
           const SizedBox(height: 16),
           const Text('Apply for different types of statutory compliances', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
           const SizedBox(height: 20),
-
           _buildComplianceTable(),
           const SizedBox(height: 20),
-
           Container(
             width: double.infinity,
             height: 50,
@@ -255,7 +223,6 @@ class _CompliancePageState extends State<CompliancePage> {
               ],
             ),
           ),
-
           _buildTableRow(['GST', 'Director KYC', 'PF', 'US Tax Filing', 'FSSAI Return']),
           _buildTableRow(['TDS', 'MGT-7', 'ESIC', '-', '-']),
           _buildTableRow(['Income Tax', 'AOC-4', 'Professional Tax', '-', '-']),
@@ -285,7 +252,6 @@ class _CompliancePageState extends State<CompliancePage> {
 
   Widget _buildComplianceStatus() {
     final rows = sampleData[activeTab] ?? [];
-
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -325,7 +291,6 @@ class _CompliancePageState extends State<CompliancePage> {
             ],
           ),
           const SizedBox(height: 16),
-
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -355,10 +320,8 @@ class _CompliancePageState extends State<CompliancePage> {
             ),
           ),
           const SizedBox(height: 20),
-
           _buildFilterBar(),
           const SizedBox(height: 20),
-
           _buildComplianceTableData(rows),
         ],
       ),
@@ -483,7 +446,6 @@ class _CompliancePageState extends State<CompliancePage> {
     Color bgColor;
     Color textColor;
     IconData icon;
-
     switch (status) {
       case "Filed":
         bgColor = const Color(0xFFDCFCE7);
@@ -505,7 +467,6 @@ class _CompliancePageState extends State<CompliancePage> {
         textColor = const Color(0xFF374151);
         icon = Icons.help_outline;
     }
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(20)),

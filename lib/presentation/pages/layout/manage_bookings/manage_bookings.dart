@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class ManageBookingsPage extends StatefulWidget {
   const ManageBookingsPage({super.key});
@@ -151,6 +152,16 @@ class _ManageBookingsPageState extends State<ManageBookingsPage> {
 
     return Scaffold(
       backgroundColor: bg,
+      appBar: CustomAppBar(
+        title: 'Manage Bookings',
+        subtitle: 'Booking system administration',
+        leadingIcon: Icons.event_available_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Export', icon: Icons.download_outlined, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'Filter', icon: Icons.filter_list, onPressed: () {}),
+        ],
+      ),
       body: Column(
         children: [
           Container(

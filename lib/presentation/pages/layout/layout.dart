@@ -85,123 +85,12 @@ class _LayoutPageState extends State<LayoutPage> {
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(24), bottomLeft: Radius.circular(24)),
                 boxShadow: [BoxShadow(color: Color(0x0F000000), blurRadius: 20, offset: Offset(0, 4))],
               ),
-              child: Column(
-                children: [
-                  _buildHeader(),
-                  Expanded(child: _views[_currentIndex]!),
-                ],
-              ),
+              child: _views[_currentIndex]!,
             ),
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade100, width: 1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _currentView,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
-                ),
-                const SizedBox(height: 4),
-                Text(_getSubtitle(_currentView), style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
-              ],
-            ),
-          ),
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF9FAFB),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
-            ),
-            child: const Icon(Icons.notifications_outlined, size: 20, color: Color(0xFF374151)),
-          ),
-          const SizedBox(width: 16),
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(color: const Color(0xFF0E5E83), borderRadius: BorderRadius.circular(12)),
-            child: const Center(
-              child: Text(
-                'AM',
-                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _getSubtitle(String viewName) {
-    switch (viewName) {
-      case 'Client Dashboard':
-        return 'Overview of all client activities and metrics';
-      case 'Opportunity Dashboard':
-        return 'Track and manage business opportunities';
-      case 'Registrations':
-        return 'Manage client registrations and onboarding';
-      case 'Compliances':
-        return 'Ensure regulatory compliance and documentation';
-      case 'Legal':
-        return 'Legal services and contract management';
-      case 'Financial Services':
-        return 'Financial planning and advisory services';
-      case 'Digital Marketing':
-        return 'Online marketing and brand management';
-      case 'Import / Export':
-        return 'International trade and logistics';
-      case 'Accounting Workspace':
-        return 'Financial management and accounting tools';
-      case 'Masters':
-        return 'Master data management and configuration';
-      case 'Transactions':
-        return 'Financial transactions and records';
-      case 'Reports':
-        return 'Analytical reports and insights';
-      case 'Network Dashboard':
-        return 'Monitor your professional network';
-      case 'Create / Manage Network':
-        return 'Build and manage your business network';
-      case 'My Members':
-        return 'Team members and their activities';
-      case 'Invitations / Requests':
-        return 'Manage network invitations and requests';
-      case 'Leads':
-        return 'Manage and track potential clients';
-      case 'Follow-up':
-        return 'Customer follow-up management';
-      case 'Clients':
-        return 'Client database and management';
-      case 'Booking Dashboard':
-        return 'Schedule and manage appointments';
-      case 'Manage Bookings':
-        return 'Booking system administration';
-      case 'To-Do':
-        return 'Your daily tasks and priorities';
-      case 'Task Management':
-        return 'Project and task management';
-      case 'SOP':
-        return 'Standard Operating Procedures';
-      case 'Biz Plan':
-        return 'Business planning and strategy';
-      default:
-        return 'Manage your workspace efficiently';
-    }
   }
 }
 

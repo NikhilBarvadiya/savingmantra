@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class CreateManageNetworkPage extends StatefulWidget {
   const CreateManageNetworkPage({super.key});
@@ -17,59 +18,19 @@ class _CreateManageNetworkPageState extends State<CreateManageNetworkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Create / Manage Network',
+        subtitle: 'Build and manage your business network',
+        leadingIcon: Icons.add_business_outlined,
+        customActions: [AppBarActionButton(label: 'Create Network', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildTabSelector(),
-            const SizedBox(height: 24),
-            _currentTab == 0 ? _buildCreateNetwork() : _buildManageNetworks(),
-            const SizedBox(height: 40),
-            _buildFooter(),
-          ],
+          children: [_buildTabSelector(), const SizedBox(height: 24), _currentTab == 0 ? _buildCreateNetwork() : _buildManageNetworks(), const SizedBox(height: 40), _buildFooter()],
         ),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-          child: Text(
-            "NETWORK MANAGEMENT",
-            style: TextStyle(fontSize: 11, color: const Color(0xFF0E5E83), fontWeight: FontWeight.w700, letterSpacing: 0.5),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Create & Manage Networks",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827), height: 1.2),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Build and manage your business networks, set up hierarchies, and configure network settings",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 

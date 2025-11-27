@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -7,46 +8,16 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Registrations',
+        subtitle: 'Manage client registrations and onboarding',
+        leadingIcon: Icons.app_registration_outlined,
+        customActions: [AppBarActionButton(label: 'New Registration', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.app_registration_outlined, color: Colors.white, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Registration Dashboard',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Manage all your business registrations and compliance requirements',
-                  style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 

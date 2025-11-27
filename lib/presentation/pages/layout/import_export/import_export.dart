@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class ImportExportPage extends StatefulWidget {
   const ImportExportPage({super.key});
@@ -22,94 +23,26 @@ class _ImportExportPageState extends State<ImportExportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Import / Export',
+        subtitle: 'International trade and logistics',
+        leadingIcon: Icons.import_export_outlined,
+        customActions: [AppBarActionButton(label: 'Upload Data', icon: Icons.upload, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-
             _buildQuickStats(),
             const SizedBox(height: 32),
-
             _buildMainContent(),
-
             const SizedBox(height: 40),
             const Center(
               child: Text("© 2025 Saving Mantra — Data Management Module", style: TextStyle(fontSize: 12, color: Color(0xFF9CA3AF))),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.import_export_outlined, color: Colors.white, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Data Import & Export',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Import, export, and manage data across all modules seamlessly',
-                    style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 16),
-            Row(
-              children: [
-                _buildHeaderButton(icon: Icons.download_outlined, text: 'Download Templates', isPrimary: false),
-                const SizedBox(width: 12),
-                _buildHeaderButton(icon: Icons.help_outline, text: 'Help Guide', isPrimary: false),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildHeaderButton({required IconData icon, required String text, required bool isPrimary}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isPrimary ? null : Colors.white,
-        gradient: isPrimary ? const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]) : null,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isPrimary ? Colors.transparent : const Color(0xFFE5E7EB)),
-        boxShadow: isPrimary ? [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))] : null,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: isPrimary ? Colors.white : const Color(0xFF6B7280), size: 16),
-          const SizedBox(width: 8),
-          Text(
-            text,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isPrimary ? Colors.white : const Color(0xFF374151)),
-          ),
-        ],
       ),
     );
   }
@@ -257,7 +190,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
             ],
           ),
           const SizedBox(height: 20),
-
           Row(
             children: [
               Expanded(
@@ -284,10 +216,8 @@ class _ImportExportPageState extends State<ImportExportPage> {
             ],
           ),
           const SizedBox(height: 20),
-
           _buildFileUploadArea(),
           const SizedBox(height: 20),
-
           _buildImportOptions(),
           const SizedBox(height: 24),
         ],
@@ -322,7 +252,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
             ],
           ),
           const SizedBox(height: 20),
-
           Row(
             children: [
               Expanded(
@@ -349,10 +278,8 @@ class _ImportExportPageState extends State<ImportExportPage> {
             ],
           ),
           const SizedBox(height: 20),
-
           _buildDateRangeSelector(),
           const SizedBox(height: 20),
-
           _buildExportOptions(),
           const SizedBox(height: 24),
         ],
@@ -368,7 +295,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
       _Template('Marketing Campaigns', 'Campaign data and performance metrics', 'CSV'),
       _Template('Legal Documents', 'Case data and document references', 'Excel'),
     ];
-
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -397,7 +323,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
           const SizedBox(height: 20),
           const Text('Use these templates to ensure your data is properly formatted for import', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
           const SizedBox(height: 20),
-
           Column(children: templates.map((template) => _buildTemplateCard(template)).toList()),
         ],
       ),
@@ -411,7 +336,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
       _History('Marketing Data Import', 'Failed', '05 Nov 2025, 16:45', 'Format error'),
       _History('Accounting Export', 'Success', '04 Nov 2025, 09:20', '230 transactions'),
     ];
-
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -438,7 +362,6 @@ class _ImportExportPageState extends State<ImportExportPage> {
             ],
           ),
           const SizedBox(height: 20),
-
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -465,28 +388,26 @@ class _ImportExportPageState extends State<ImportExportPage> {
                     label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700)),
                   ),
                 ],
-                rows: history
-                    .map(
-                      (item) => DataRow(
-                        cells: [
-                          DataCell(Text(item.operation)),
-                          DataCell(_buildStatusBadge(item.status)),
-                          DataCell(Text(item.date)),
-                          DataCell(Text(item.details)),
-                          DataCell(
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                              child: const Text(
-                                'View Log',
-                                style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
-                              ),
-                            ),
+                rows: history.map((item) {
+                  return DataRow(
+                    cells: [
+                      DataCell(Text(item.operation)),
+                      DataCell(_buildStatusBadge(item.status)),
+                      DataCell(Text(item.date)),
+                      DataCell(Text(item.details)),
+                      DataCell(
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                          child: const Text(
+                            'View Log',
+                            style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
                           ),
-                        ],
+                        ),
                       ),
-                    )
-                    .toList(),
+                    ],
+                  );
+                }).toList(),
               ),
             ),
           ),

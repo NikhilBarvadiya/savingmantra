@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class TodoListPage extends StatefulWidget {
   const TodoListPage({super.key});
@@ -82,58 +83,15 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     const bg = Color(0xFFF7F8FB);
-    const accent = Color(0xFFE67E22);
-    const border = Color(0xFFE2E8F0);
     const muted = Color(0xFF6B7280);
 
     return Scaffold(
       backgroundColor: bg,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Business Tools · To-Do List', style: TextStyle(fontSize: 12, color: muted)),
-            const SizedBox(height: 2),
-            const Text(
-              'To-Do List',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: bg,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: border),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.calendar_today, size: 16, color: muted),
-                const SizedBox(width: 8),
-                Text(DateFormat('MMM dd, yyyy').format(DateTime.now()), style: const TextStyle(fontSize: 13, color: muted)),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          ElevatedButton.icon(
-            onPressed: _showNewTaskDialog,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: accent,
-              foregroundColor: Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            ),
-            icon: const Icon(Icons.add, size: 16),
-            label: const Text('New Task', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-          ),
-          const SizedBox(width: 16),
-        ],
+      appBar: CustomAppBar(
+        title: 'To-Do',
+        subtitle: 'Your daily tasks and priorities',
+        leadingIcon: Icons.checklist_outlined,
+        customActions: [AppBarActionButton(label: 'New Task', icon: Icons.add, onPressed: _showNewTaskDialog, isPrimary: true)],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

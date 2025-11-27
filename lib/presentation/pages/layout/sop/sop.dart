@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class SopPage extends StatefulWidget {
   const SopPage({super.key});
@@ -51,9 +52,14 @@ class _SopPageState extends State<SopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff7f8fb),
+      appBar: CustomAppBar(
+        title: 'SOP',
+        subtitle: 'Standard Operating Procedures',
+        leadingIcon: Icons.description_outlined,
+        customActions: [AppBarActionButton(label: 'Create SOP', icon: Icons.add, onPressed: _showCreateSOPDialog, isPrimary: true)],
+      ),
       body: Column(
         children: [
-          _buildHeader(),
           _buildStatsRow(),
           Expanded(
             child: Row(
@@ -71,47 +77,6 @@ class _SopPageState extends State<SopPage> {
         onPressed: _showCreateSOPDialog,
         backgroundColor: const Color(0xFF0E5E83),
         child: const Icon(Icons.add, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(0, 2))],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Standard Operating Procedures',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.grey[900]),
-                ),
-                const SizedBox(height: 4),
-                Text('Create, manage and follow standardized processes', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(color: const Color(0xFF0E5E83), borderRadius: BorderRadius.circular(20)),
-            child: Row(
-              children: [
-                const Icon(Icons.library_books, size: 16, color: Colors.white),
-                const SizedBox(width: 6),
-                Text(
-                  'SOP Builder',
-                  style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

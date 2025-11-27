@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class MastersPage extends StatelessWidget {
   const MastersPage({super.key});
@@ -7,45 +8,19 @@ class MastersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Masters',
+        subtitle: 'Master data management and configuration',
+        leadingIcon: Icons.star_outline,
+        customActions: [AppBarActionButton(label: 'Add Master', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            _buildQuickStats(),
-            const SizedBox(height: 32),
-            _buildMasterCategories(),
-            const SizedBox(height: 32),
-            _buildRecentActivity(),
-            const SizedBox(height: 40),
-            _buildFooter(),
-          ],
+          children: [_buildQuickStats(), const SizedBox(height: 32), _buildMasterCategories(), const SizedBox(height: 32), _buildRecentActivity(), const SizedBox(height: 40), _buildFooter()],
         ),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Accounting · Masters",
-          style: TextStyle(fontSize: 13, color: Colors.grey[600], fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "Master Data Management",
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "Manage your chart of accounts, customers, vendors, items and other master records",
-          style: TextStyle(fontSize: 14, color: Colors.grey[600], fontWeight: FontWeight.w400),
-        ),
-      ],
     );
   }
 

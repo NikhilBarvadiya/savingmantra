@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class InvitationsRequestsPage extends StatefulWidget {
   const InvitationsRequestsPage({super.key});
@@ -15,13 +16,17 @@ class _InvitationsRequestsPageState extends State<InvitationsRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Invitations / Requests',
+        subtitle: 'Manage network invitations and requests',
+        leadingIcon: Icons.mail_outline,
+        customActions: [AppBarActionButton(label: 'Send Invitation', icon: Icons.send, onPressed: () {}, isPrimary: true)],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
             _buildStatsOverview(),
             const SizedBox(height: 32),
             _buildTabSelector(),
@@ -38,51 +43,6 @@ class _InvitationsRequestsPageState extends State<InvitationsRequestsPage> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-          child: Text(
-            "INVITATIONS & REQUESTS",
-            style: TextStyle(fontSize: 11, color: const Color(0xFF0E5E83), fontWeight: FontWeight.w700, letterSpacing: 0.5),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Invitations & Requests",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827), height: 1.2),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Manage network invitations, membership requests, and track invitation status",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[600], fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                _HeaderActionButton(icon: Icons.send_rounded, text: "Send Invite", onTap: () {}, primary: true),
-                const SizedBox(width: 12),
-                _HeaderActionButton(icon: Icons.download_rounded, text: "Export", onTap: () {}, primary: false),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 
@@ -406,40 +366,6 @@ class _InvitationsRequestsPageState extends State<InvitationsRequestsPage> {
   Widget _buildFooter() {
     return Center(
       child: Text('© ${DateTime.now().year} Saving Mantra — Invitations & Requests', style: const TextStyle(fontSize: 12, color: Color(0xFF9CA3AF))),
-    );
-  }
-}
-
-class _HeaderActionButton extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final VoidCallback onTap;
-  final bool primary;
-
-  const _HeaderActionButton({required this.icon, required this.text, required this.onTap, required this.primary});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: primary ? const Color(0xFF0E5E83) : Colors.white,
-        foregroundColor: primary ? Colors.white : const Color(0xFF0E5E83),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: primary ? BorderSide.none : BorderSide(color: Colors.grey.shade300),
-        ),
-        elevation: primary ? 2 : 0,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16),
-          const SizedBox(width: 8),
-          Text(text, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-        ],
-      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class DigitalMarketingPage extends StatefulWidget {
   const DigitalMarketingPage({super.key});
@@ -22,14 +23,21 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
+      appBar: CustomAppBar(
+        title: 'Digital Marketing',
+        subtitle: 'Online marketing and brand management',
+        leadingIcon: Icons.campaign_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Export Report', icon: Icons.download_outlined, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'New Campaign', icon: Icons.add, onPressed: () {}, isPrimary: true),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-
             _buildKPISection(),
             const SizedBox(height: 32),
 
@@ -44,75 +52,6 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.trending_up_outlined, color: Colors.white, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Digital Marketing Dashboard',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Manage campaigns, track performance, and analyze marketing metrics',
-                    style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 16),
-            Row(
-              children: [
-                _buildHeaderButton(icon: Icons.download_outlined, text: 'Export Report', isPrimary: false),
-                const SizedBox(width: 12),
-                _buildHeaderButton(icon: Icons.add, text: 'New Campaign', isPrimary: true),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildHeaderButton({required IconData icon, required String text, required bool isPrimary}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isPrimary ? null : Colors.white,
-        gradient: isPrimary ? const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]) : null,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isPrimary ? Colors.transparent : const Color(0xFFE5E7EB)),
-        boxShadow: isPrimary ? [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))] : null,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: isPrimary ? Colors.white : const Color(0xFF6B7280), size: 16),
-          const SizedBox(width: 8),
-          Text(
-            text,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isPrimary ? Colors.white : const Color(0xFF374151)),
-          ),
-        ],
       ),
     );
   }

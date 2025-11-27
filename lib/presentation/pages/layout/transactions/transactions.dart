@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class TransactionsPage extends StatelessWidget {
   const TransactionsPage({super.key});
@@ -7,63 +8,19 @@ class TransactionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: Column(
-        children: [
-          _buildHeaderWithFilters(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [_buildQuickStats(), const SizedBox(height: 32), _buildTransactionsList(), const SizedBox(height: 40), _buildFooter()],
-              ),
-            ),
-          ),
+      appBar: CustomAppBar(
+        title: 'Transactions',
+        subtitle: 'Financial transactions and records',
+        leadingIcon: Icons.swap_horiz_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Filter', icon: Icons.filter_list, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'New Transaction', icon: Icons.add, onPressed: () {}, isPrimary: true),
         ],
       ),
-    );
-  }
-
-  Widget _buildHeaderWithFilters() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade100, width: 1)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Accounting · Transactions",
-                  style: TextStyle(fontSize: 13, color: Colors.grey[600], fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "Transaction Management",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: const Color(0xFF111827)),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              _FilterButton(icon: Icons.calendar_today_rounded, text: "This Month", onTap: () {}),
-              const SizedBox(width: 12),
-              _FilterButton(icon: Icons.filter_list_rounded, text: "Filters", onTap: () {}),
-              const SizedBox(width: 12),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(color: const Color(0xFF0E5E83), borderRadius: BorderRadius.circular(10)),
-                child: const Icon(Icons.add_rounded, color: Colors.white, size: 20),
-              ),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildQuickStats(), const SizedBox(height: 32), _buildTransactionsList(), const SizedBox(height: 40), _buildFooter()]),
       ),
     );
   }
@@ -201,40 +158,6 @@ class TransactionsPage extends StatelessWidget {
   Widget _buildFooter() {
     return const Center(
       child: Text("© 2025 Saving Mantra — Transaction Management", style: TextStyle(fontSize: 12, color: Color(0xFF9CA3AF))),
-    );
-  }
-}
-
-class _FilterButton extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final VoidCallback onTap;
-
-  const _FilterButton({required this.icon, required this.text, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 16, color: const Color(0xFF374151)),
-            const SizedBox(width: 6),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF374151)),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

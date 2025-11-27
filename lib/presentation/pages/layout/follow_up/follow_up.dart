@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class FollowUpPage extends StatefulWidget {
   const FollowUpPage({super.key});
@@ -746,6 +747,12 @@ class _FollowUpPageState extends State<FollowUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff7f8fb),
+      appBar: CustomAppBar(
+        title: 'Follow-up',
+        subtitle: 'Customer follow-up management',
+        leadingIcon: Icons.update_outlined,
+        customActions: [AppBarActionButton(label: 'Schedule Follow-up', icon: Icons.add, onPressed: () {}, isPrimary: true)],
+      ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

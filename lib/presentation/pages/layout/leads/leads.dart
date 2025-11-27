@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savingmantra/presentation/widgets/common/custom_app_bar.dart';
 
 class LeadsPage extends StatefulWidget {
   const LeadsPage({super.key});
@@ -717,6 +718,16 @@ class _LeadsPageState extends State<LeadsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff7f8fb),
+      appBar: CustomAppBar(
+        title: 'Leads',
+        subtitle: 'Manage and track potential clients',
+        leadingIcon: Icons.leaderboard_outlined,
+        customActions: [
+          AppBarActionButton(label: 'Import Leads', icon: Icons.upload, onPressed: () {}),
+          const SizedBox(width: 8),
+          AppBarActionButton(label: 'Add Lead', icon: Icons.add, onPressed: () {}, isPrimary: true),
+        ],
+      ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
