@@ -9,18 +9,7 @@ class LegalPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            
-            _buildQuickStats(),
-            const SizedBox(height: 32),
-            
-            _buildMainContent(),
-          ],
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
       ),
     );
   }
@@ -35,11 +24,7 @@ class LegalPage extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-                ),
+                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(Icons.gavel_outlined, color: Colors.white, size: 24),
@@ -50,20 +35,12 @@ class LegalPage extends StatelessWidget {
               children: [
                 Text(
                   'Legal Services Dashboard',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0xFF111827),
-                  ),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Apply for new legal services and track the status of your existing requests',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: const Color(0xFF6B7280),
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -83,11 +60,7 @@ class LegalPage extends StatelessWidget {
                       SizedBox(width: 8),
                       Text(
                         'Help & FAQs',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF374151),
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF374151)),
                       ),
                     ],
                   ),
@@ -97,18 +70,8 @@ class LegalPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF0E5E83).withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
+                    boxShadow: [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))],
                   ),
                   child: const Row(
                     children: [
@@ -116,11 +79,7 @@ class LegalPage extends StatelessWidget {
                       SizedBox(width: 8),
                       Text(
                         'New Legal Enquiry',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                       ),
                     ],
                   ),
@@ -139,13 +98,7 @@ class LegalPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Row(
         children: [
@@ -168,30 +121,19 @@ class LegalPage extends StatelessWidget {
           Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
+            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
             child: Icon(icon, color: color, size: 28),
           ),
           const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF111827),
-            ),
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Color(0xFF111827)),
           ),
           const SizedBox(height: 4),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -202,47 +144,21 @@ class LegalPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
-          child: _buildLegalServices(),
-        ),
+        Expanded(flex: 2, child: _buildLegalServices()),
         const SizedBox(width: 24),
-        
-        Expanded(
-          flex: 2,
-          child: _buildAppliedServices(),
-        ),
+
+        Expanded(flex: 2, child: _buildAppliedServices()),
       ],
     );
   }
 
   Widget _buildLegalServices() {
     final services = [
-      _LegalService(
-        category: 'Agreements',
-        description: 'Draft, review and update standard business agreements and MoUs.',
-        useCase: 'Vendor agreement, partnership MoU, NDA.',
-      ),
-      _LegalService(
-        category: 'Contract',
-        description: 'Detailed contracts for long-term business relationships and projects.',
-        useCase: 'Service contracts, supply contracts, retainers.',
-      ),
-      _LegalService(
-        category: 'Trending',
-        description: 'New-age legal needs linked to startups and digital businesses.',
-        useCase: 'ESOP agreements, investor term sheets, SaaS policies.',
-      ),
-      _LegalService(
-        category: 'Real Estate',
-        description: 'Property-related documentation, review and registration support.',
-        useCase: 'Sale deed, lease agreement, leave & license, gift deed.',
-      ),
-      _LegalService(
-        category: 'Other',
-        description: 'Any customized legal requirement not covered above.',
-        useCase: 'Notice drafting, reply to notice, custom documentation.',
-      ),
+      _LegalService(category: 'Agreements', description: 'Draft, review and update standard business agreements and MoUs.', useCase: 'Vendor agreement, partnership MoU, NDA.'),
+      _LegalService(category: 'Contract', description: 'Detailed contracts for long-term business relationships and projects.', useCase: 'Service contracts, supply contracts, retainers.'),
+      _LegalService(category: 'Trending', description: 'New-age legal needs linked to startups and digital businesses.', useCase: 'ESOP agreements, investor term sheets, SaaS policies.'),
+      _LegalService(category: 'Real Estate', description: 'Property-related documentation, review and registration support.', useCase: 'Sale deed, lease agreement, leave & license, gift deed.'),
+      _LegalService(category: 'Other', description: 'Any customized legal requirement not covered above.', useCase: 'Notice drafting, reply to notice, custom documentation.'),
     ];
 
     return Container(
@@ -250,13 +166,7 @@ class LegalPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,34 +176,23 @@ class LegalPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.add_circle_outline, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Apply for Legal Services',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
           const SizedBox(height: 8),
           const Text(
             'Choose a category to apply for a new legal service. Your Saving Mantra advisor will review the request and contact you.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-            ),
+            style: TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
           ),
           const SizedBox(height: 24),
-          
-          ...services.map((service) => _buildServiceCard(service)).toList(),
+          ...services.map((service) => _buildServiceCard(service)),
         ],
       ),
     );
@@ -316,69 +215,41 @@ class LegalPage extends StatelessWidget {
               Container(
                 width: 32,
                 height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
                 child: const Icon(Icons.description_outlined, size: 16, color: Color(0xFF0E5E83)),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   service.category,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF111827),
-                  ),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE67E22),
-                  borderRadius: BorderRadius.circular(6),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFFE67E22), borderRadius: BorderRadius.circular(6)),
                 child: const Text(
                   'Apply',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            service.description,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-              height: 1.4,
-            ),
-          ),
+          Text(service.description, style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280), height: 1.4)),
           const SizedBox(height: 8),
           Row(
             children: [
               Container(
                 width: 4,
                 height: 4,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF6B7280),
-                  shape: BoxShape.circle,
-                ),
+                decoration: const BoxDecoration(color: Color(0xFF6B7280), shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'Typical Use: ${service.useCase}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF6B7280),
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280), fontStyle: FontStyle.italic),
                 ),
               ),
             ],
@@ -390,41 +261,11 @@ class LegalPage extends StatelessWidget {
 
   Widget _buildAppliedServices() {
     final applications = [
-      _LegalApplication(
-        sn: 1,
-        date: '11-11-2025',
-        name: 'Draft Shareholders Agreement',
-        status: 'Pending Review',
-        statusType: _StatusType.warning,
-      ),
-      _LegalApplication(
-        sn: 2,
-        date: '05-11-2025',
-        name: 'Property Sale Deed Review',
-        status: 'In Progress',
-        statusType: _StatusType.info,
-      ),
-      _LegalApplication(
-        sn: 3,
-        date: '01-11-2025',
-        name: 'Vendor Contract Vetting',
-        status: 'Awaiting Documents',
-        statusType: _StatusType.info,
-      ),
-      _LegalApplication(
-        sn: 4,
-        date: '25-10-2025',
-        name: 'Leave & License Agreement',
-        status: 'Completed',
-        statusType: _StatusType.success,
-      ),
-      _LegalApplication(
-        sn: 5,
-        date: '20-10-2025',
-        name: 'ESOP Policy Drafting',
-        status: 'On Hold',
-        statusType: _StatusType.info,
-      ),
+      _LegalApplication(sn: 1, date: '11-11-2025', name: 'Draft Shareholders Agreement', status: 'Pending Review', statusType: _StatusType.warning),
+      _LegalApplication(sn: 2, date: '05-11-2025', name: 'Property Sale Deed Review', status: 'In Progress', statusType: _StatusType.info),
+      _LegalApplication(sn: 3, date: '01-11-2025', name: 'Vendor Contract Vetting', status: 'Awaiting Documents', statusType: _StatusType.info),
+      _LegalApplication(sn: 4, date: '25-10-2025', name: 'Leave & License Agreement', status: 'Completed', statusType: _StatusType.success),
+      _LegalApplication(sn: 5, date: '20-10-2025', name: 'ESOP Policy Drafting', status: 'On Hold', statusType: _StatusType.info),
     ];
 
     return Container(
@@ -432,13 +273,7 @@ class LegalPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -448,20 +283,13 @@ class LegalPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.timeline_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Status of Applied Services',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
               const Spacer(),
               Container(
@@ -473,25 +301,15 @@ class LegalPage extends StatelessWidget {
                 ),
                 child: Text(
                   '${applications.length} Applications',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF0E5E83),
-                  ),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF0E5E83)),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Track the progress of your legal service requests, documents and deliverables.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-            ),
-          ),
+          const Text('Track the progress of your legal service requests, documents and deliverables.', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
           const SizedBox(height: 24),
-          
+
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -502,11 +320,21 @@ class LegalPage extends StatelessWidget {
               child: DataTable(
                 headingRowColor: MaterialStateProperty.all(const Color(0xFFF9FAFB)),
                 columns: const [
-                  DataColumn(label: Text('#', style: TextStyle(fontWeight: FontWeight.w700))),
-                  DataColumn(label: Text('Date', style: TextStyle(fontWeight: FontWeight.w700))),
-                  DataColumn(label: Text('Name of Legal Service', style: TextStyle(fontWeight: FontWeight.w700))),
-                  DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700))),
-                  DataColumn(label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700))),
+                  DataColumn(
+                    label: Text('#', style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  DataColumn(
+                    label: Text('Date', style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  DataColumn(
+                    label: Text('Name of Legal Service', style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  DataColumn(
+                    label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
+                  DataColumn(
+                    label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700)),
+                  ),
                 ],
                 rows: applications.map((app) => _buildApplicationRow(app)).toList(),
               ),
@@ -536,17 +364,10 @@ class LegalPage extends StatelessWidget {
         DataCell(
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF0E5E83).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(6),
-            ),
+            decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
             child: const Text(
               'Track',
-              style: TextStyle(
-                color: Color(0xFF0E5E83),
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -579,10 +400,7 @@ class LegalPage extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -590,11 +408,7 @@ class LegalPage extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             status,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
           ),
         ],
       ),
@@ -607,11 +421,7 @@ class _LegalService {
   final String description;
   final String useCase;
 
-  const _LegalService({
-    required this.category,
-    required this.description,
-    required this.useCase,
-  });
+  const _LegalService({required this.category, required this.description, required this.useCase});
 }
 
 class _LegalApplication {
@@ -621,13 +431,7 @@ class _LegalApplication {
   final String status;
   final _StatusType statusType;
 
-  const _LegalApplication({
-    required this.sn,
-    required this.date,
-    required this.name,
-    required this.status,
-    required this.statusType,
-  });
+  const _LegalApplication({required this.sn, required this.date, required this.name, required this.status, required this.statusType});
 }
 
 enum _StatusType { success, warning, info }

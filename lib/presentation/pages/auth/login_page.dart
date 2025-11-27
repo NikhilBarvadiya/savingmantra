@@ -36,10 +36,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OTPVerificationPage(
-                isRegisterFlow: _isRegisterFlow,
-                phoneNumber: phoneNumber,
-              ),
+              builder: (context) => OTPVerificationPage(isRegisterFlow: _isRegisterFlow, phoneNumber: phoneNumber),
             ),
           );
         }
@@ -58,11 +55,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: isWeb
-            ? _buildWebLayout(context, size, authState)
-            : _buildMobileLayout(context, size, isTablet, authState),
-      ),
+      body: SafeArea(child: isWeb ? _buildWebLayout(context, size, authState) : _buildMobileLayout(context, size, isTablet, authState)),
     );
   }
 
@@ -73,15 +66,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           flex: 5,
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.primary,
-                  AppColors.primary.withOpacity(0.8),
-                  AppColors.primaryLight,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              gradient: LinearGradient(colors: [AppColors.primary, AppColors.primary.withOpacity(0.8), AppColors.primaryLight], begin: Alignment.topLeft, end: Alignment.bottomRight),
             ),
             child: _buildBrandingContent(),
           ),
@@ -92,14 +77,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             color: AppColors.white,
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 60,
-                  vertical: 40,
-                ),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 480),
-                  child: _buildFormContent(size, false, authState),
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 40),
+                child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 480), child: _buildFormContent(size, false, authState)),
               ),
             ),
           ),
@@ -108,50 +87,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  Widget _buildMobileLayout(
-    BuildContext context,
-    Size size,
-    bool isTablet,
-    AuthState authState,
-  ) {
+  Widget _buildMobileLayout(BuildContext context, Size size, bool isTablet, AuthState authState) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
         constraints: BoxConstraints(minHeight: size.height),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.white, AppColors.primary.withOpacity(0.02)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          gradient: LinearGradient(colors: [AppColors.white, AppColors.primary.withOpacity(0.02)], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: Column(
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: isTablet ? 40 : 24,
-                vertical: isTablet ? 60 : 40,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40 : 24, vertical: isTablet ? 60 : 40),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppColors.primary, AppColors.primaryLight],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
+                gradient: LinearGradient(colors: [AppColors.primary, AppColors.primaryLight], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
               ),
               child: _buildMobileHeader(isTablet),
             ),
             Padding(
               padding: EdgeInsets.all(isTablet ? 40 : 24),
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: isTablet ? 600 : double.infinity,
-                ),
+                constraints: BoxConstraints(maxWidth: isTablet ? 600 : double.infinity),
                 child: _buildFormContent(size, true, authState),
               ),
             ),
@@ -170,10 +128,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           child: Container(
             width: 300,
             height: 300,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
           ),
         ),
         Positioned(
@@ -182,10 +137,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           child: Container(
             width: 400,
             height: 400,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.05),
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.05)),
           ),
         ),
         Padding(
@@ -199,58 +151,26 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
-                child: const Icon(
-                  Icons.account_balance_wallet_rounded,
-                  size: 40,
-                  color: AppColors.primary,
-                ),
+                child: const Icon(Icons.account_balance_wallet_rounded, size: 40, color: AppColors.primary),
               ),
               const SizedBox(height: 40),
               const Text(
                 'Welcome to\nSaving Mantra',
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  height: 1.2,
-                ),
+                style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white, height: 1.2),
               ),
               const SizedBox(height: 24),
               Text(
                 'Your trusted companion for smart financial management and achieving your savings goals.',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white.withOpacity(0.9),
-                  fontWeight: FontWeight.w400,
-                  height: 1.6,
-                ),
+                style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w400, height: 1.6),
               ),
               const SizedBox(height: 60),
-              _buildFeatureItem(
-                Icons.phone_android_rounded,
-                'Phone Verification',
-                'Secure login with OTP verification',
-              ),
+              _buildFeatureItem(Icons.phone_android_rounded, 'Phone Verification', 'Secure login with OTP verification'),
               const SizedBox(height: 24),
-              _buildFeatureItem(
-                Icons.security_rounded,
-                'Bank-Level Security',
-                'Your data is encrypted and protected 24/7',
-              ),
+              _buildFeatureItem(Icons.security_rounded, 'Bank-Level Security', 'Your data is encrypted and protected 24/7'),
               const SizedBox(height: 24),
-              _buildFeatureItem(
-                Icons.savings_rounded,
-                'Smart Savings',
-                'Achieve your financial goals faster',
-              ),
+              _buildFeatureItem(Icons.savings_rounded, 'Smart Savings', 'Achieve your financial goals faster'),
             ],
           ),
         ),
@@ -267,38 +187,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 20,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))],
           ),
-          child: const Icon(
-            Icons.account_balance_wallet_rounded,
-            size: 32,
-            color: AppColors.primary,
-          ),
+          child: const Icon(Icons.account_balance_wallet_rounded, size: 32, color: AppColors.primary),
         ),
         const SizedBox(height: 24),
         Text(
           'Welcome Back!',
-          style: TextStyle(
-            fontSize: isTablet ? 36 : 28,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            height: 1.2,
-          ),
+          style: TextStyle(fontSize: isTablet ? 36 : 28, fontWeight: FontWeight.w900, color: Colors.white, height: 1.2),
         ),
         const SizedBox(height: 12),
         Text(
           'Enter your phone number to continue',
-          style: TextStyle(
-            fontSize: isTablet ? 18 : 16,
-            color: Colors.white.withOpacity(0.9),
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: isTablet ? 18 : 16, color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -323,26 +224,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 textInputAction: TextInputAction.done,
                 prefixIcon: Container(
                   padding: const EdgeInsets.all(12),
-                  child: Icon(
-                    Icons.phone_android_rounded,
-                    color: AppColors.primary.withOpacity(0.7),
-                    size: 20,
-                  ),
+                  child: Icon(Icons.phone_android_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
                 ),
               ),
               const SizedBox(height: 32),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: authState.isLoading
-                      ? []
-                      : [
-                          BoxShadow(
-                            color: AppColors.primary.withOpacity(0.3),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
+                  boxShadow: authState.isLoading ? [] : [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
                 child: CustomButton(
                   text: 'Send OTP',
@@ -366,14 +255,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _isRegisterFlow
-                          ? "Already have an account? "
-                          : "Don't have an account? ",
-                      style: TextStyle(
-                        color: AppColors.darkGrey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      _isRegisterFlow ? "Already have an account? " : "Don't have an account? ",
+                      style: TextStyle(color: AppColors.darkGrey, fontSize: 15, fontWeight: FontWeight.w500),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -383,11 +266,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       },
                       child: Text(
                         _isRegisterFlow ? 'Sign In' : 'Sign Up Free',
-                        style: const TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: const TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
@@ -409,20 +288,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       children: [
         Text(
           '${!_isRegisterFlow ? 'Sign In' : 'Sign Up'} with Phone',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w900,
-            color: AppColors.black,
-          ),
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: AppColors.black),
         ),
         const SizedBox(height: 8),
         Text(
           'Enter your phone number to receive OTP',
-          style: TextStyle(
-            fontSize: 16,
-            color: AppColors.darkGrey.withOpacity(0.7),
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: 16, color: AppColors.darkGrey.withOpacity(0.7), fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -434,10 +305,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       children: [
         Container(
           padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(12),
-          ),
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
           child: Icon(icon, color: Colors.white, size: 24),
         ),
         const SizedBox(width: 16),
@@ -447,20 +315,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
               ),
               const SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white.withOpacity(0.8),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8), fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -482,25 +342,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         children: [
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(
-              Icons.verified_user_rounded,
-              color: AppColors.success,
-              size: 16,
-            ),
+            decoration: BoxDecoration(color: AppColors.success.withOpacity(0.15), borderRadius: BorderRadius.circular(8)),
+            child: const Icon(Icons.verified_user_rounded, color: AppColors.success, size: 16),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               'Secured with 256-bit encryption',
-              style: TextStyle(
-                color: AppColors.success.withOpacity(0.9),
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: AppColors.success.withOpacity(0.9), fontSize: 13, fontWeight: FontWeight.w600),
             ),
           ),
         ],

@@ -9,18 +9,7 @@ class RegistrationPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 32),
-            
-            _buildQuickStats(),
-            const SizedBox(height: 32),
-            
-            _buildMainContent(),
-          ],
-        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildHeader(), const SizedBox(height: 32), _buildQuickStats(), const SizedBox(height: 32), _buildMainContent()]),
       ),
     );
   }
@@ -35,11 +24,7 @@ class RegistrationPage extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-                ),
+                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(Icons.app_registration_outlined, color: Colors.white, size: 24),
@@ -50,20 +35,12 @@ class RegistrationPage extends StatelessWidget {
               children: [
                 Text(
                   'Registration Dashboard',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0xFF111827),
-                  ),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Manage all your business registrations and compliance requirements',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: const Color(0xFF6B7280),
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -79,13 +56,7 @@ class RegistrationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Row(
         children: [
@@ -108,30 +79,19 @@ class RegistrationPage extends StatelessWidget {
           Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
+            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
             child: Icon(icon, color: color, size: 28),
           ),
           const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF111827),
-            ),
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Color(0xFF111827)),
           ),
           const SizedBox(height: 4),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -142,28 +102,10 @@ class RegistrationPage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
-          child: Column(
-            children: [
-              _buildExistingRegistrations(),
-              const SizedBox(height: 24),
-              _buildRegistrationCategories(),
-            ],
-          ),
-        ),
+        Expanded(flex: 2, child: Column(children: [_buildExistingRegistrations(), const SizedBox(height: 24), _buildRegistrationCategories()])),
         const SizedBox(width: 24),
-        
-        Expanded(
-          flex: 2,
-          child: Column(
-            children: [
-              _buildApplyNewRegistration(),
-              const SizedBox(height: 24),
-              _buildAppliedRegistrations(),
-            ],
-          ),
-        ),
+
+        Expanded(flex: 2, child: Column(children: [_buildApplyNewRegistration(), const SizedBox(height: 24), _buildAppliedRegistrations()])),
       ],
     );
   }
@@ -174,13 +116,7 @@ class RegistrationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,20 +126,13 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.list_alt_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Existing Registrations',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
@@ -231,36 +160,22 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 32,
                 height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
                 child: const Icon(Icons.business_center_outlined, size: 16, color: Color(0xFF0E5E83)),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   registration.name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF111827),
-                  ),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF10B981).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(6),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
                 child: const Text(
                   'Active',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF065F46),
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Color(0xFF065F46), fontWeight: FontWeight.w600),
                 ),
               ),
             ],
@@ -283,20 +198,12 @@ class RegistrationPage extends StatelessWidget {
             width: 120,
             child: Text(
               label,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF6B7280),
-                fontWeight: FontWeight.w500,
-              ),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF111827),
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF111827), fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -309,13 +216,7 @@ class RegistrationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,29 +226,18 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.category_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Registration Categories',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: _registrationCategories.map((category) => _buildCategoryCard(category)).toList(),
-          ),
+          Wrap(spacing: 12, runSpacing: 12, children: _registrationCategories.map((category) => _buildCategoryCard(category)).toList()),
         ],
       ),
     );
@@ -370,55 +260,31 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 32,
                 height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
                 child: const Icon(Icons.fact_check_outlined, size: 16, color: Color(0xFF0E5E83)),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   category.name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF111827),
-                  ),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            category.description,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Color(0xFF6B7280),
-              height: 1.4,
-            ),
-          ),
+          Text(category.description, style: const TextStyle(fontSize: 13, color: Color(0xFF6B7280), height: 1.4)),
           const SizedBox(height: 12),
           Container(
             width: double.infinity,
             height: 36,
-            decoration: BoxDecoration(
-              color: const Color(0xFF0E5E83).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
+            decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
             child: TextButton(
-              onPressed: () {
-              },
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-              ),
+              onPressed: () {},
+              style: TextButton.styleFrom(padding: EdgeInsets.zero),
               child: const Text(
                 'Apply Now',
-                style: TextStyle(
-                  color: Color(0xFF0E5E83),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -433,13 +299,7 @@ class RegistrationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -449,60 +309,34 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.add_circle_outline, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Apply for New Registration',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
-            'Start a new registration process for your business requirements',
-            style: TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-            ),
-          ),
+          const Text('Start a new registration process for your business requirements', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
           const SizedBox(height: 20),
           Container(
             width: double.infinity,
             height: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF0E5E83).withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
+              boxShadow: [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))],
             ),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              onPressed: () {
-              },
+              onPressed: () {},
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -510,11 +344,7 @@ class RegistrationPage extends StatelessWidget {
                   SizedBox(width: 8),
                   Text(
                     'Start New Registration',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                 ],
               ),
@@ -531,13 +361,7 @@ class RegistrationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -547,20 +371,13 @@ class RegistrationPage extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.pending_actions_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Applied Registrations',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
@@ -570,11 +387,21 @@ class RegistrationPage extends StatelessWidget {
             child: DataTable(
               headingRowColor: MaterialStateProperty.all(const Color(0xFFF9FAFB)),
               columns: const [
-                DataColumn(label: Text('#', style: TextStyle(fontWeight: FontWeight.w700))),
-                DataColumn(label: Text('Date', style: TextStyle(fontWeight: FontWeight.w700))),
-                DataColumn(label: Text('Registration', style: TextStyle(fontWeight: FontWeight.w700))),
-                DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700))),
-                DataColumn(label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700))),
+                DataColumn(
+                  label: Text('#', style: TextStyle(fontWeight: FontWeight.w700)),
+                ),
+                DataColumn(
+                  label: Text('Date', style: TextStyle(fontWeight: FontWeight.w700)),
+                ),
+                DataColumn(
+                  label: Text('Registration', style: TextStyle(fontWeight: FontWeight.w700)),
+                ),
+                DataColumn(
+                  label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700)),
+                ),
+                DataColumn(
+                  label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700)),
+                ),
               ],
               rows: _appliedRegistrations.map((applied) => _buildAppliedRow(applied)).toList(),
             ),
@@ -594,17 +421,10 @@ class RegistrationPage extends StatelessWidget {
         DataCell(
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF0E5E83).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(6),
-            ),
+            decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
             child: const Text(
               'Track',
-              style: TextStyle(
-                color: Color(0xFF0E5E83),
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -629,10 +449,7 @@ class RegistrationPage extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -640,11 +457,7 @@ class RegistrationPage extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             status,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
           ),
         ],
       ),
@@ -658,22 +471,14 @@ class ExistingRegistration {
   final String startDate;
   final String endDate;
 
-  const ExistingRegistration({
-    required this.name,
-    required this.registerId,
-    required this.startDate,
-    required this.endDate,
-  });
+  const ExistingRegistration({required this.name, required this.registerId, required this.startDate, required this.endDate});
 }
 
 class RegistrationCategory {
   final String name;
   final String description;
 
-  const RegistrationCategory({
-    required this.name,
-    required this.description,
-  });
+  const RegistrationCategory({required this.name, required this.description});
 }
 
 class AppliedRegistration {
@@ -683,73 +488,24 @@ class AppliedRegistration {
   final String status;
   final String statusType;
 
-  const AppliedRegistration({
-    required this.sn,
-    required this.date,
-    required this.name,
-    required this.status,
-    required this.statusType,
-  });
+  const AppliedRegistration({required this.sn, required this.date, required this.name, required this.status, required this.statusType});
 }
 
 const List<ExistingRegistration> _existingRegistrations = [
-  ExistingRegistration(
-    name: 'GST Registration',
-    registerId: 'GST27ABCDE1234Z1Z',
-    startDate: '01-04-2022',
-    endDate: '—',
-  ),
-  ExistingRegistration(
-    name: 'Shop & Establishment',
-    registerId: 'SHOPEST/PN/2021/1456',
-    startDate: '15-06-2021',
-    endDate: '14-06-2026',
-  ),
+  ExistingRegistration(name: 'GST Registration', registerId: 'GST27ABCDE1234Z1Z', startDate: '01-04-2022', endDate: '—'),
+  ExistingRegistration(name: 'Shop & Establishment', registerId: 'SHOPEST/PN/2021/1456', startDate: '15-06-2021', endDate: '14-06-2026'),
 ];
 
 const List<RegistrationCategory> _registrationCategories = [
-  RegistrationCategory(
-    name: 'Formation',
-    description: 'Company/LLP/Partnership, Society, Trust formation etc.',
-  ),
-  RegistrationCategory(
-    name: 'Govt Registration',
-    description: 'GST, MSME/Udyam, Shops & Establishment, Professional Tax etc.',
-  ),
-  RegistrationCategory(
-    name: 'Govt License',
-    description: 'FSSAI, Trade License, Pollution, Labour license etc.',
-  ),
-  RegistrationCategory(
-    name: 'Global',
-    description: 'IEC, Import–Export registrations, foreign entity formation etc.',
-  ),
-  RegistrationCategory(
-    name: 'Other',
-    description: 'Any other custom registration / license requirement.',
-  ),
+  RegistrationCategory(name: 'Formation', description: 'Company/LLP/Partnership, Society, Trust formation etc.'),
+  RegistrationCategory(name: 'Govt Registration', description: 'GST, MSME/Udyam, Shops & Establishment, Professional Tax etc.'),
+  RegistrationCategory(name: 'Govt License', description: 'FSSAI, Trade License, Pollution, Labour license etc.'),
+  RegistrationCategory(name: 'Global', description: 'IEC, Import–Export registrations, foreign entity formation etc.'),
+  RegistrationCategory(name: 'Other', description: 'Any other custom registration / license requirement.'),
 ];
 
 const List<AppliedRegistration> _appliedRegistrations = [
-  AppliedRegistration(
-    sn: 1,
-    date: '05-11-2025',
-    name: 'GST Registration',
-    status: 'Approved',
-    statusType: 'success',
-  ),
-  AppliedRegistration(
-    sn: 2,
-    date: '02-11-2025',
-    name: 'FSSAI License',
-    status: 'Pending',
-    statusType: 'warning',
-  ),
-  AppliedRegistration(
-    sn: 3,
-    date: '28-10-2025',
-    name: 'Import–Export Code',
-    status: 'Under Process',
-    statusType: 'warning',
-  ),
+  AppliedRegistration(sn: 1, date: '05-11-2025', name: 'GST Registration', status: 'Approved', statusType: 'success'),
+  AppliedRegistration(sn: 2, date: '02-11-2025', name: 'FSSAI License', status: 'Pending', statusType: 'warning'),
+  AppliedRegistration(sn: 3, date: '28-10-2025', name: 'Import–Export Code', status: 'Under Process', statusType: 'warning'),
 ];

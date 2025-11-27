@@ -64,12 +64,7 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
         await authNotifier.verifyRegisterOTP(_otpController.text);
         appToast.successToast(txt: 'OTP verified successfully!');
         if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RegistrationPage(),
-            ),
-          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegistrationPage()));
         }
       } else {
         await authNotifier.verifyLoginOTP(_otpController.text);

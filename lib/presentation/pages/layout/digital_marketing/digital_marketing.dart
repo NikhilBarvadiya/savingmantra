@@ -4,38 +4,19 @@ class DigitalMarketingPage extends StatefulWidget {
   const DigitalMarketingPage({super.key});
 
   @override
-  State<DigitalMarketingPage> createState() =>
-      _DigitalMarketingPageState();
+  State<DigitalMarketingPage> createState() => _DigitalMarketingPageState();
 }
 
-class _DigitalMarketingPageState
-    extends State<DigitalMarketingPage> {
+class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
   String activeTab = "All Campaigns";
   String selectedChannel = "All Channels";
   String selectedPackage = "All Packages";
 
-  final List<String> campaignTabs = const [
-    "All Campaigns",
-    "Active",
-    "Completed",
-    "Draft",
-  ];
+  final List<String> campaignTabs = const ["All Campaigns", "Active", "Completed", "Draft"];
 
-  final List<String> channels = const [
-    "All Channels",
-    "Facebook",
-    "Instagram",
-    "Google Ads",
-    "LinkedIn",
-    "YouTube",
-  ];
+  final List<String> channels = const ["All Channels", "Facebook", "Instagram", "Google Ads", "LinkedIn", "YouTube"];
 
-  final List<String> packages = const [
-    "All Packages",
-    "Starter Pack",
-    "Growth Pack",
-    "Enterprise Pack",
-  ];
+  final List<String> packages = const ["All Packages", "Starter Pack", "Growth Pack", "Enterprise Pack"];
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +40,7 @@ class _DigitalMarketingPageState
 
             const SizedBox(height: 40),
             const Center(
-              child: Text(
-                "© 2025 Saving Mantra — Digital Marketing Module",
-                style: TextStyle(fontSize: 12, color: Color(0xFF9CA3AF)),
-              ),
+              child: Text("© 2025 Saving Mantra — Digital Marketing Module", style: TextStyle(fontSize: 12, color: Color(0xFF9CA3AF))),
             ),
           ],
         ),
@@ -80,18 +58,10 @@ class _DigitalMarketingPageState
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-                ),
+                gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(
-                Icons.trending_up_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
+              child: const Icon(Icons.trending_up_outlined, color: Colors.white, size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -100,20 +70,12 @@ class _DigitalMarketingPageState
                 children: [
                   Text(
                     'Digital Marketing Dashboard',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      color: const Color(0xFF111827),
-                    ),
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: const Color(0xFF111827)),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Manage campaigns, track performance, and analyze marketing metrics',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: const Color(0xFF6B7280),
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: TextStyle(fontSize: 16, color: const Color(0xFF6B7280), fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -121,17 +83,9 @@ class _DigitalMarketingPageState
             const SizedBox(width: 16),
             Row(
               children: [
-                _buildHeaderButton(
-                  icon: Icons.download_outlined,
-                  text: 'Export Report',
-                  isPrimary: false,
-                ),
+                _buildHeaderButton(icon: Icons.download_outlined, text: 'Export Report', isPrimary: false),
                 const SizedBox(width: 12),
-                _buildHeaderButton(
-                  icon: Icons.add,
-                  text: 'New Campaign',
-                  isPrimary: true,
-                ),
+                _buildHeaderButton(icon: Icons.add, text: 'New Campaign', isPrimary: true),
               ],
             ),
           ],
@@ -140,51 +94,23 @@ class _DigitalMarketingPageState
     );
   }
 
-  Widget _buildHeaderButton({
-    required IconData icon,
-    required String text,
-    required bool isPrimary,
-  }) {
+  Widget _buildHeaderButton({required IconData icon, required String text, required bool isPrimary}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: isPrimary ? null : Colors.white,
-        gradient: isPrimary
-            ? const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)],
-              )
-            : null,
+        gradient: isPrimary ? const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Color(0xFF0E5E83), Color(0xFF0E8E83)]) : null,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isPrimary ? Colors.transparent : const Color(0xFFE5E7EB),
-        ),
-        boxShadow: isPrimary
-            ? [
-                BoxShadow(
-                  color: const Color(0xFF0E5E83).withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ]
-            : null,
+        border: Border.all(color: isPrimary ? Colors.transparent : const Color(0xFFE5E7EB)),
+        boxShadow: isPrimary ? [BoxShadow(color: const Color(0xFF0E5E83).withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 4))] : null,
       ),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: isPrimary ? Colors.white : const Color(0xFF6B7280),
-            size: 16,
-          ),
+          Icon(icon, color: isPrimary ? Colors.white : const Color(0xFF6B7280), size: 16),
           const SizedBox(width: 8),
           Text(
             text,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: isPrimary ? Colors.white : const Color(0xFF374151),
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: isPrimary ? Colors.white : const Color(0xFF374151)),
           ),
         ],
       ),
@@ -197,99 +123,48 @@ class _DigitalMarketingPageState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Row(
         children: [
-          _buildKPIItem(
-            'Active Campaigns',
-            '12',
-            Icons.campaign_outlined,
-            const Color(0xFF3B82F6),
-            '+2 from last month',
-          ),
+          _buildKPIItem('Active Campaigns', '12', Icons.campaign_outlined, const Color(0xFF3B82F6), '+2 from last month'),
           const SizedBox(width: 24),
-          _buildKPIItem(
-            'Ad Spend (This Month)',
-            '₹ 1,25,000',
-            Icons.currency_rupee_outlined,
-            const Color(0xFF10B981),
-            '15% over budget',
-          ),
+          _buildKPIItem('Ad Spend (This Month)', '₹ 1,25,000', Icons.currency_rupee_outlined, const Color(0xFF10B981), '15% over budget'),
           const SizedBox(width: 24),
-          _buildKPIItem(
-            'Leads Generated',
-            '346',
-            Icons.people_outline,
-            const Color(0xFFF59E0B),
-            '42% conversion rate',
-          ),
+          _buildKPIItem('Leads Generated', '346', Icons.people_outline, const Color(0xFFF59E0B), '42% conversion rate'),
           const SizedBox(width: 24),
-          _buildKPIItem(
-            'Avg Cost Per Lead',
-            '₹ 361',
-            Icons.trending_up_outlined,
-            const Color(0xFFEF4444),
-            '8% lower than target',
-          ),
+          _buildKPIItem('Avg Cost Per Lead', '₹ 361', Icons.trending_up_outlined, const Color(0xFFEF4444), '8% lower than target'),
         ],
       ),
     );
   }
 
-  Widget _buildKPIItem(
-    String title,
-    String value,
-    IconData icon,
-    Color color,
-    String subtitle,
-  ) {
+  Widget _buildKPIItem(String title, String value, IconData icon, Color color, String subtitle) {
     return Expanded(
       child: Column(
         children: [
           Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
-            ),
+            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
             child: Icon(icon, color: color, size: 28),
           ),
           const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF111827),
-            ),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Color(0xFF111827)),
           ),
           const SizedBox(height: 4),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11,
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -302,13 +177,7 @@ class _DigitalMarketingPageState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,24 +187,13 @@ class _DigitalMarketingPageState
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.filter_alt_outlined,
-                  color: Color(0xFF0E5E83),
-                  size: 20,
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+                child: const Icon(Icons.filter_alt_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Text(
                 'Filters & Analytics',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
               ),
             ],
           ),
@@ -344,13 +202,7 @@ class _DigitalMarketingPageState
           LayoutBuilder(
             builder: (context, constraints) {
               final isNarrow = constraints.maxWidth < 900;
-              return Column(
-                children: [
-                  _buildFilterRow(),
-                  const SizedBox(height: 16),
-                  _buildAnalyticsCards(isNarrow),
-                ],
-              );
+              return Column(children: [_buildFilterRow(), const SizedBox(height: 16), _buildAnalyticsCards(isNarrow)]);
             },
           ),
         ],
@@ -362,17 +214,7 @@ class _DigitalMarketingPageState
     return Row(
       children: [
         Expanded(
-          child: _buildFilterDropdown(
-            label: "Date Range",
-            value: "This Month",
-            items: const [
-              "This Month",
-              "Last Month",
-              "Last Quarter",
-              "Custom Range",
-            ],
-            onChanged: (value) {},
-          ),
+          child: _buildFilterDropdown(label: "Date Range", value: "This Month", items: const ["This Month", "Last Month", "Last Quarter", "Custom Range"], onChanged: (value) {}),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -399,39 +241,23 @@ class _DigitalMarketingPageState
         const Spacer(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF0E5E83),
-            borderRadius: BorderRadius.circular(8),
-          ),
+          decoration: BoxDecoration(color: const Color(0xFF0E5E83), borderRadius: BorderRadius.circular(8)),
           child: const Text(
             'Apply Filter',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildFilterDropdown({
-    required String label,
-    required String value,
-    required List<String> items,
-    required Function(String?) onChanged,
-  }) {
+  Widget _buildFilterDropdown({required String label, required String value, required List<String> items, required Function(String?) onChanged}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF374151),
-          ),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF374151)),
         ),
         const SizedBox(height: 8),
         Container(
@@ -448,9 +274,7 @@ class _DigitalMarketingPageState
             isExpanded: true,
             underline: const SizedBox(),
             style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-            items: items
-                .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
-                .toList(),
+            items: items.map((e) => DropdownMenuItem<String>(value: e, child: Text(e))).toList(),
             onChanged: onChanged,
           ),
         ),
@@ -516,10 +340,7 @@ class _DigitalMarketingPageState
           );
   }
 
-  Widget _buildAnalyticsCard({
-    required String title,
-    required List<List<String>> items,
-  }) {
+  Widget _buildAnalyticsCard({required String title, required List<List<String>> items}) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -532,11 +353,7 @@ class _DigitalMarketingPageState
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF111827),
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
           ),
           const SizedBox(height: 12),
           ...items.map((row) {
@@ -544,29 +361,15 @@ class _DigitalMarketingPageState
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(
-                border: last
-                    ? null
-                    : const Border(
-                        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                      ),
+                border: last ? null : const Border(bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    row[0],
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF374151),
-                    ),
-                  ),
+                  Text(row[0], style: const TextStyle(fontSize: 14, color: Color(0xFF374151))),
                   Text(
                     row[1],
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF111827),
-                    ),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
                   ),
                 ],
               ),
@@ -583,13 +386,7 @@ class _DigitalMarketingPageState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x0F000000),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: const Color(0x0F000000), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -599,46 +396,26 @@ class _DigitalMarketingPageState
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0E5E83).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.bar_chart_outlined,
-                  color: Color(0xFF0E5E83),
-                  size: 20,
-                ),
+                decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+                child: const Icon(Icons.bar_chart_outlined, color: Color(0xFF0E5E83), size: 20),
               ),
               const SizedBox(width: 12),
               const Expanded(
                 child: Text(
                   'Campaign Performance',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF111827),
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF111827)),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF0F9FF),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: const Color(0xFF0E5E83).withOpacity(0.2),
-                  ),
+                  border: Border.all(color: const Color(0xFF0E5E83).withOpacity(0.2)),
                 ),
                 child: const Text(
                   '12 Campaigns',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF0E5E83),
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF0E5E83)),
                 ),
               ),
             ],
@@ -655,13 +432,7 @@ class _DigitalMarketingPageState
                   child: ChoiceChip(
                     label: Text(
                       tab,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: selected
-                            ? Colors.white
-                            : const Color(0xFF374151),
-                      ),
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: selected ? Colors.white : const Color(0xFF374151)),
                     ),
                     selected: selected,
                     onSelected: (bool selected) {
@@ -669,16 +440,11 @@ class _DigitalMarketingPageState
                         activeTab = tab;
                       });
                     },
+                    checkmarkColor: Colors.white,
                     backgroundColor: Colors.white,
                     selectedColor: const Color(0xFF0E5E83),
-                    side: BorderSide(
-                      color: selected
-                          ? const Color(0xFF0E5E83)
-                          : const Color(0xFFD1D5DB),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                    side: BorderSide(color: selected ? const Color(0xFF0E5E83) : const Color(0xFFD1D5DB)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   ),
                 );
               }).toList(),
@@ -704,55 +470,31 @@ class _DigitalMarketingPageState
           headingRowColor: MaterialStateProperty.all(const Color(0xFFF9FAFB)),
           columns: const [
             DataColumn(
-              label: Text(
-                'Campaign',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Campaign', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Client',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Client', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Channels',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Channels', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Duration',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Duration', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Budget',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Budget', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Leads',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Leads', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
               label: Text('CPL', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Status',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Status', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             DataColumn(
-              label: Text(
-                'Action',
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
+              label: Text('Action', style: TextStyle(fontWeight: FontWeight.w700)),
             ),
           ],
           rows: const [
@@ -837,10 +579,7 @@ class _StatusBadge extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -848,11 +587,7 @@ class _StatusBadge extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             status,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: textColor),
           ),
         ],
       ),
@@ -867,17 +602,10 @@ class _ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: const Color(0xFF0E5E83).withOpacity(0.1),
-        borderRadius: BorderRadius.circular(6),
-      ),
+      decoration: BoxDecoration(color: const Color(0xFF0E5E83).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
       child: const Text(
         'View Details',
-        style: TextStyle(
-          color: Color(0xFF0E5E83),
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(color: Color(0xFF0E5E83), fontSize: 12, fontWeight: FontWeight.w600),
       ),
     );
   }

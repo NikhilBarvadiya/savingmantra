@@ -23,8 +23,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   final _confirmPinController = TextEditingController();
 
   String? _selectedCountryId;
-  bool _obscurePin = true;
-  bool _obscureConfirmPin = true;
+  bool _obscurePin = true, _obscureConfirmPin = true;
 
   @override
   void initState() {
@@ -118,11 +117,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         appToast.successToast(txt: 'Registration successful! Please login.');
 
         if (mounted) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-            (route) => false,
-          );
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
         }
       } catch (e) {
         appToast.internalServerError(e.toString());
@@ -139,9 +134,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: isWeb ? _buildWebLayout(authState) : _buildMobileLayout(isTablet, authState),
-      ),
+      body: SafeArea(child: isWeb ? _buildWebLayout(authState) : _buildMobileLayout(isTablet, authState)),
     );
   }
 
@@ -152,15 +145,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           flex: 5,
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.primary,
-                  AppColors.primary.withOpacity(0.8),
-                  AppColors.primaryLight,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              gradient: LinearGradient(colors: [AppColors.primary, AppColors.primary.withOpacity(0.8), AppColors.primaryLight], begin: Alignment.topLeft, end: Alignment.bottomRight),
             ),
             child: _buildBrandingContent(),
           ),
@@ -172,10 +157,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             child: Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 40),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 480),
-                  child: _buildFormContent(false, authState),
-                ),
+                child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 480), child: _buildFormContent(false, authState)),
               ),
             ),
           ),
@@ -189,30 +171,16 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
       physics: const BouncingScrollPhysics(),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.white, AppColors.primary.withOpacity(0.02)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          gradient: LinearGradient(colors: [AppColors.white, AppColors.primary.withOpacity(0.02)], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: Column(
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: isTablet ? 40 : 24,
-                vertical: isTablet ? 60 : 40,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40 : 24, vertical: isTablet ? 60 : 40),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppColors.primary, AppColors.primaryLight],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
+                gradient: LinearGradient(colors: [AppColors.primary, AppColors.primaryLight], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
               ),
               child: _buildMobileHeader(isTablet),
             ),
@@ -238,10 +206,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           child: Container(
             width: 300,
             height: 300,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
           ),
         ),
         Positioned(
@@ -250,10 +215,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           child: Container(
             width: 400,
             height: 400,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.05),
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.05)),
           ),
         ),
         Padding(
@@ -267,58 +229,26 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
-                child: const Icon(
-                  Icons.person_add_rounded,
-                  size: 40,
-                  color: AppColors.primary,
-                ),
+                child: const Icon(Icons.person_add_rounded, size: 40, color: AppColors.primary),
               ),
               const SizedBox(height: 40),
               const Text(
                 'Create Your\nAccount',
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  height: 1.2,
-                ),
+                style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white, height: 1.2),
               ),
               const SizedBox(height: 24),
               Text(
                 'Join thousands of users managing their finances smartly with SavingMantra.',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white.withOpacity(0.9),
-                  fontWeight: FontWeight.w400,
-                  height: 1.6,
-                ),
+                style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w400, height: 1.6),
               ),
               const SizedBox(height: 60),
-              _buildFeatureItem(
-                Icons.security_rounded,
-                'Secure Registration',
-                'Your information is protected with bank-level security',
-              ),
+              _buildFeatureItem(Icons.security_rounded, 'Secure Registration', 'Your information is protected with bank-level security'),
               const SizedBox(height: 24),
-              _buildFeatureItem(
-                Icons.speed_rounded,
-                'Quick Setup',
-                'Get started in less than 2 minutes',
-              ),
+              _buildFeatureItem(Icons.speed_rounded, 'Quick Setup', 'Get started in less than 2 minutes'),
               const SizedBox(height: 24),
-              _buildFeatureItem(
-                Icons.support_agent_rounded,
-                '24/7 Support',
-                'Our team is always here to help you',
-              ),
+              _buildFeatureItem(Icons.support_agent_rounded, '24/7 Support', 'Our team is always here to help you'),
             ],
           ),
         ),
@@ -335,38 +265,19 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 20,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))],
           ),
-          child: const Icon(
-            Icons.person_add_rounded,
-            size: 32,
-            color: AppColors.primary,
-          ),
+          child: const Icon(Icons.person_add_rounded, size: 32, color: AppColors.primary),
         ),
         const SizedBox(height: 24),
         Text(
           'Complete Registration',
-          style: TextStyle(
-            fontSize: isTablet ? 36 : 28,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            height: 1.2,
-          ),
+          style: TextStyle(fontSize: isTablet ? 36 : 28, fontWeight: FontWeight.w900, color: Colors.white, height: 1.2),
         ),
         const SizedBox(height: 12),
         Text(
           'Fill in your details to create your account',
-          style: TextStyle(
-            fontSize: isTablet ? 18 : 16,
-            color: Colors.white.withOpacity(0.9),
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: isTablet ? 18 : 16, color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -388,11 +299,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             validator: _validateFullName,
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
-              child: Icon(
-                Icons.person_outline_rounded,
-                color: AppColors.primary.withOpacity(0.7),
-                size: 20,
-              ),
+              child: Icon(Icons.person_outline_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
             ),
           ),
           const SizedBox(height: 20),
@@ -405,11 +312,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             validator: _validateEmail,
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
-              child: Icon(
-                Icons.email_outlined,
-                color: AppColors.primary.withOpacity(0.7),
-                size: 20,
-              ),
+              child: Icon(Icons.email_outlined, color: AppColors.primary.withOpacity(0.7), size: 20),
             ),
           ),
           const SizedBox(height: 20),
@@ -422,11 +325,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 child: RichText(
                   text: const TextSpan(
                     text: 'Country',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.darkGrey,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkGrey),
                     children: [
                       TextSpan(
                         text: ' *',
@@ -440,49 +339,27 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: AppColors.grey.withOpacity(0.3),
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: AppColors.grey.withOpacity(0.3), width: 1.5),
                 ),
                 child: authState.isLoadingCountries
                     ? const Padding(
                         padding: EdgeInsets.all(16),
-                        child: Center(
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                        ),
+                        child: Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))),
                       )
                     : DropdownButtonFormField<String>(
                         value: _selectedCountryId,
                         decoration: InputDecoration(
                           hintText: 'Select your country',
-                          hintStyle: TextStyle(
-                            color: AppColors.grey.withOpacity(0.8),
-                            fontWeight: FontWeight.w400,
-                          ),
+                          hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.8), fontWeight: FontWeight.w400),
                           prefixIcon: Container(
                             padding: const EdgeInsets.all(12),
-                            child: Icon(
-                              Icons.public_rounded,
-                              color: AppColors.primary.withOpacity(0.7),
-                              size: 20,
-                            ),
+                            child: Icon(Icons.public_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
                           ),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 16,
-                          ),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         ),
                         items: authState.countries.map((country) {
-                          return DropdownMenuItem(
-                            value: country.id,
-                            child: Text(country.name),
-                          );
+                          return DropdownMenuItem(value: country.id, child: Text(country.name));
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
@@ -502,11 +379,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             validator: _validateCity,
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
-              child: Icon(
-                Icons.location_city_rounded,
-                color: AppColors.primary.withOpacity(0.7),
-                size: 20,
-              ),
+              child: Icon(Icons.location_city_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
             ),
           ),
           const SizedBox(height: 20),
@@ -520,17 +393,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             validator: _validateAuthPin,
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
-              child: Icon(
-                Icons.lock_outline_rounded,
-                color: AppColors.primary.withOpacity(0.7),
-                size: 20,
-              ),
+              child: Icon(Icons.lock_outline_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
             ),
             suffixIcon: IconButton(
-              icon: Icon(
-                _obscurePin ? Icons.visibility_off : Icons.visibility,
-                color: AppColors.grey,
-              ),
+              icon: Icon(_obscurePin ? Icons.visibility_off : Icons.visibility, color: AppColors.grey),
               onPressed: () {
                 setState(() {
                   _obscurePin = !_obscurePin;
@@ -550,17 +416,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             textInputAction: TextInputAction.done,
             prefixIcon: Container(
               padding: const EdgeInsets.all(12),
-              child: Icon(
-                Icons.lock_outline_rounded,
-                color: AppColors.primary.withOpacity(0.7),
-                size: 20,
-              ),
+              child: Icon(Icons.lock_outline_rounded, color: AppColors.primary.withOpacity(0.7), size: 20),
             ),
             suffixIcon: IconButton(
-              icon: Icon(
-                _obscureConfirmPin ? Icons.visibility_off : Icons.visibility,
-                color: AppColors.grey,
-              ),
+              icon: Icon(_obscureConfirmPin ? Icons.visibility_off : Icons.visibility, color: AppColors.grey),
               onPressed: () {
                 setState(() {
                   _obscureConfirmPin = !_obscureConfirmPin;
@@ -573,15 +432,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              boxShadow: authState.isLoading
-                  ? []
-                  : [
-                      BoxShadow(
-                        color: AppColors.primary.withOpacity(0.3),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
+              boxShadow: authState.isLoading ? [] : [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
             ),
             child: CustomButton(
               text: 'Create Account',
@@ -607,27 +458,15 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               children: [
                 const Text(
                   'Already have an account? ',
-                  style: TextStyle(
-                    color: AppColors.darkGrey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(color: AppColors.darkGrey, fontSize: 15, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                      (route) => false,
-                    );
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
                   },
                   child: const Text(
                     'Sign In',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -644,20 +483,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
       children: [
         const Text(
           'Complete Your Profile',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w900,
-            color: AppColors.black,
-          ),
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: AppColors.black),
         ),
         const SizedBox(height: 8),
         Text(
           'Please fill in your details to continue',
-          style: TextStyle(
-            fontSize: 16,
-            color: AppColors.darkGrey.withOpacity(0.7),
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: 16, color: AppColors.darkGrey.withOpacity(0.7), fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -669,10 +500,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
       children: [
         Container(
           padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(12),
-          ),
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
           child: Icon(icon, color: Colors.white, size: 24),
         ),
         const SizedBox(width: 16),
@@ -682,20 +510,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
               ),
               const SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white.withOpacity(0.8),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8), fontWeight: FontWeight.w400),
               ),
             ],
           ),
@@ -704,4 +524,3 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     );
   }
 }
-
