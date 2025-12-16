@@ -21,7 +21,7 @@ class ApiService {
           if (token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
-          logger.i('API Request: ${options.method} ${options.path}');
+          logger.i('API URL: ${options.method} ${options.path}');
           return handler.next(options);
         },
         onResponse: (response, handler) {
@@ -38,6 +38,7 @@ class ApiService {
 
   Future<dynamic> get(String endpoint, {Map<String, dynamic>? queryParams}) async {
     try {
+      logger.i('API Request: $queryParams');
       final response = await _dio.get(endpoint, queryParameters: queryParams);
       return _handleResponse(response);
     } on DioException catch (e) {
@@ -47,6 +48,7 @@ class ApiService {
 
   Future<dynamic> post(String endpoint, dynamic data) async {
     try {
+      logger.i('API Request: $data');
       final response = await _dio.post(endpoint, data: data);
       return _handleResponse(response);
     } on DioException catch (e) {
@@ -56,6 +58,7 @@ class ApiService {
 
   Future<dynamic> put(String endpoint, dynamic data) async {
     try {
+      logger.i('API Request: $data');
       final response = await _dio.put(endpoint, data: data);
       return _handleResponse(response);
     } on DioException catch (e) {
@@ -73,7 +76,7 @@ class ApiService {
   }
 
   dynamic _handleResponse(Response response) {
-    if (response.data["Status"] == "Error") {
+    if (response.data.runtimeType != List && response.data["Status"] == "Error") {
       throw Exception('API Error: ${response.statusCode}');
     }
     if (response.statusCode! >= 200 && response.statusCode! < 300) {

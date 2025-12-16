@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:savingmantra/presentation/pages/layout/accounting/accounting.dart';
 import 'package:savingmantra/presentation/pages/layout/booking/booking.dart';
-import 'package:savingmantra/presentation/pages/layout/business_plans/business_plans.dart';
 import 'package:savingmantra/presentation/pages/layout/client/client.dart';
-import 'package:savingmantra/presentation/pages/layout/clients/clients.dart';
 import 'package:savingmantra/presentation/pages/layout/create_managed_network/create_managed_network.dart';
-import 'package:savingmantra/presentation/pages/layout/follow_up/follow_up.dart';
 import 'package:savingmantra/presentation/pages/layout/import_export/import_export.dart';
 import 'package:savingmantra/presentation/pages/layout/invitations_requests/invitations_requests.dart';
-import 'package:savingmantra/presentation/pages/layout/leads/leads.dart';
+import 'package:savingmantra/presentation/pages/layout/crm/crm_page.dart';
 import 'package:savingmantra/presentation/pages/layout/manage_bookings/manage_bookings.dart';
 import 'package:savingmantra/presentation/pages/layout/masters/masters.dart';
 import 'package:savingmantra/presentation/pages/layout/my_members/my_members.dart';
@@ -20,8 +17,6 @@ import 'package:savingmantra/presentation/pages/layout/legal/legal.dart';
 import 'package:savingmantra/presentation/pages/layout/financial_services/financial_services.dart';
 import 'package:savingmantra/presentation/pages/layout/digital_marketing/digital_marketing.dart';
 import 'package:savingmantra/presentation/pages/layout/reports/reports.dart';
-import 'package:savingmantra/presentation/pages/layout/sop/sop.dart';
-import 'package:savingmantra/presentation/pages/layout/task_management/task_management.dart';
 import 'package:savingmantra/presentation/pages/layout/todo_list/todo_list.dart';
 import 'package:savingmantra/presentation/pages/layout/transactions/transactions.dart';
 
@@ -53,15 +48,10 @@ class _LayoutPageState extends State<LayoutPage> {
     13: const CreateManageNetworkPage(),
     14: const MyMembersPage(),
     15: const InvitationsRequestsPage(),
-    16: const LeadsPage(),
-    17: const FollowUpPage(),
-    18: const ClientsPage(),
-    19: const BookingPage(),
-    20: const ManageBookingsPage(),
-    21: const TodoListPage(),
-    22: const TaskManagementPage(),
-    23: const SopPage(),
-    24: const BusinessPlansPage(),
+    16: const CRMPage(),
+    17: const BookingPage(),
+    18: const ManageBookingsPage(),
+    19: const TodoListPage(),
   };
 
   void _changeView(String viewName, int index) {
@@ -155,26 +145,19 @@ class _Sidebar extends StatelessWidget {
                 ),
                 _SidebarSection(
                   title: 'CRM',
-                  items: [
-                    _SidebarItem('Leads', icon: Icons.leaderboard_outlined, active: currentIndex == 16, onTap: () => onViewChanged('Leads', 16)),
-                    _SidebarItem('Follow-up', icon: Icons.update_outlined, active: currentIndex == 17, onTap: () => onViewChanged('Follow-ups', 17)),
-                    _SidebarItem('Clients', icon: Icons.business_center_outlined, active: currentIndex == 18, onTap: () => onViewChanged('Clients', 18)),
-                  ],
+                  items: [_SidebarItem('CRM', icon: Icons.people_outline, active: currentIndex == 16, onTap: () => onViewChanged('CRM', 16))],
                 ),
                 _SidebarSection(
                   title: 'Booking',
                   items: [
-                    _SidebarItem('Booking Dashboard', icon: Icons.calendar_today_outlined, active: currentIndex == 19, onTap: () => onViewChanged('Booking Dashboard', 19)),
-                    _SidebarItem('Manage Bookings', icon: Icons.event_available_outlined, active: currentIndex == 20, onTap: () => onViewChanged('Manage Bookings', 20)),
+                    _SidebarItem('Booking Dashboard', icon: Icons.calendar_today_outlined, active: currentIndex == 17, onTap: () => onViewChanged('Booking Dashboard', 17)),
+                    _SidebarItem('Manage Bookings', icon: Icons.event_available_outlined, active: currentIndex == 18, onTap: () => onViewChanged('Manage Bookings', 18)),
                   ],
                 ),
                 _SidebarSection(
                   title: 'Daily Tools',
                   items: [
-                    _SidebarItem('To-Do', icon: Icons.checklist_outlined, active: currentIndex == 21, onTap: () => onViewChanged('To-Do', 21)),
-                    _SidebarItem('Task Management', icon: Icons.task_outlined, active: currentIndex == 22, onTap: () => onViewChanged('Task Management', 22)),
-                    _SidebarItem('SOP', icon: Icons.description_outlined, active: currentIndex == 23, onTap: () => onViewChanged('SOP', 23)),
-                    _SidebarItem('Biz Plan', icon: Icons.lightbulb_outline, active: currentIndex == 24, onTap: () => onViewChanged('Biz Plan', 24)),
+                    _SidebarItem('To-Do', icon: Icons.checklist_outlined, active: currentIndex == 19, onTap: () => onViewChanged('To-Do', 19)),
                   ],
                 ),
               ],
