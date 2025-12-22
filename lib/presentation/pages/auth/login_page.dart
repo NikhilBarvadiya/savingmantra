@@ -254,9 +254,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      _isRegisterFlow ? "Already have an account? " : "Don't have an account? ",
-                      style: TextStyle(color: AppColors.darkGrey, fontSize: 15, fontWeight: FontWeight.w500),
+                    Flexible(
+                      child: Text(
+                        _isRegisterFlow ? "Already have an account? " : "Don't have an account? ",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: AppColors.darkGrey, fontSize: 15, fontWeight: FontWeight.w500),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -266,6 +270,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       },
                       child: Text(
                         _isRegisterFlow ? 'Sign In' : 'Sign Up Free',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                     ),

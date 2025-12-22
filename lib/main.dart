@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
         title: AppConstants.appName,
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: !LocalStorage.isLoggedIn() ? AppRoutes.layout : AppRoutes.login,
+        initialRoute: LocalStorage.isLoggedIn() ? AppRoutes.layout : AppRoutes.login,
         routes: AppRoutes.getRoutes(),
       ),
     );

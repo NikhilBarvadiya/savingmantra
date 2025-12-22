@@ -5,6 +5,7 @@ import 'package:savingmantra/core/themes/colors.dart';
 import 'package:savingmantra/core/utils/app_toast.dart';
 import 'package:savingmantra/presentation/pages/auth/registration_page.dart';
 import 'package:savingmantra/presentation/providers/auth_provider.dart';
+import 'package:savingmantra/presentation/router/app_routes.dart';
 import 'package:savingmantra/presentation/widgets/common/custom_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -51,14 +52,11 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
 
   void _verifyOTP() async {
     FocusScope.of(context).unfocus();
-
     if (_otpController.text.length != 4) {
       appToast.dioToast(icon: Icons.warning, txt: 'Please enter 4-digit OTP');
       return;
     }
-
     final authNotifier = ref.read(authProvider.notifier);
-
     try {
       if (widget.isRegisterFlow) {
         await authNotifier.verifyRegisterOTP(_otpController.text);
@@ -70,7 +68,7 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
         await authNotifier.verifyLoginOTP(_otpController.text);
         appToast.successToast(txt: 'Login successful!');
         if (mounted) {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.layout, (route) => false);
         }
       }
     } catch (e) {
@@ -80,14 +78,12 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
 
   void _resendOTP() async {
     final authNotifier = ref.read(authProvider.notifier);
-
     try {
       if (widget.isRegisterFlow) {
         await authNotifier.sendRegisterOTP(widget.phoneNumber);
       } else {
         await authNotifier.sendLoginOTP(widget.phoneNumber);
       }
-
       setState(() {
         _remainingTime = 60;
         _isCountdownFinished = false;
@@ -104,7 +100,6 @@ class _OTPVerificationPageState extends ConsumerState<OTPVerificationPage> {
     final authState = ref.watch(authProvider);
     final size = MediaQuery.of(context).size;
     final isWeb = size.width > 900;
-
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(child: isWeb ? _buildWebLayout(context, size, authState) : _buildMobileLayout(context, size, authState)),

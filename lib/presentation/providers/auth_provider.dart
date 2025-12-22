@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savingmantra/data/datasources/local_storage.dart';
-import 'package:savingmantra/domain/repositories/auth_repository.dart';
-import 'package:savingmantra/domain/repositories/i_auth_repository.dart';
+import 'package:savingmantra/domain/repositories/auth/auth_repository.dart';
+import 'package:savingmantra/domain/repositories/auth/i_auth_repository.dart';
 
 class Country {
   final String id;
@@ -43,6 +43,9 @@ class AuthNotifier extends Notifier<AuthState> {
     try {
       final result = await _authRepository.sendOTP(phoneNumber, "client");
       if (result['ErrorMsg'] == "success" || result['ErrorMsg'] == "successsendtoregister") {
+        final authToken = result['Auth'];
+        await LocalStorage.setToken(authToken);
+        await LocalStorage.setLoggedIn(true);
         state = state.copyWith(isLoading: false, phoneNumber: phoneNumber, authToken: result['Auth']);
       } else {
         throw Exception(result['ErrorMsg'] ?? 'Failed to send OTP');

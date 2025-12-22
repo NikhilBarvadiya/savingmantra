@@ -96,15 +96,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
 
   void _register() async {
     FocusScope.of(context).unfocus();
-
     if (_formKey.currentState!.validate()) {
       if (_selectedCountryId == null) {
         appToast.dioToast(icon: Icons.warning, txt: 'Please select a country');
         return;
       }
-
       final authNotifier = ref.read(authProvider.notifier);
-
       try {
         await authNotifier.registerUser(
           fullName: _fullNameController.text.trim(),
@@ -113,9 +110,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           city: _cityController.text.trim(),
           authPin: _authPinController.text.trim(),
         );
-
         appToast.successToast(txt: 'Registration successful! Please login.');
-
         if (mounted) {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
         }

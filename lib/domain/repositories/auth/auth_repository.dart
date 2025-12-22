@@ -1,6 +1,6 @@
 import 'package:savingmantra/core/constants/api_constants.dart';
 import 'package:savingmantra/data/datasources/api_service.dart';
-import 'package:savingmantra/domain/repositories/i_auth_repository.dart';
+import 'package:savingmantra/domain/repositories/auth/i_auth_repository.dart';
 
 class AuthRepository implements IAuthRepository {
   final ApiService _apiService = ApiService();
