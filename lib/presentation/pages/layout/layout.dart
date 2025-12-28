@@ -19,6 +19,16 @@ class _LayoutPageState extends State<LayoutPage> {
 
   final Map<int, Widget> _views = {0: const CRMPage(), 1: const TodoListPage()};
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ApiService().token.isEmpty) {
+        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (route) => false);
+      }
+    });
+  }
+
   void _changeView(String viewName, int index) {
     setState(() {
       _currentView = viewName;

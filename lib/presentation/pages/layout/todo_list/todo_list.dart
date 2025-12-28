@@ -30,7 +30,6 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
     _tabController.addListener(_handleTabSelection);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        // Ensure tab index is valid before loading data
         if (_tabController.index < 0) {
           _tabController.animateTo(0);
         }
@@ -79,7 +78,6 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
 
   Future<void> _fetchTasks() async {
     try {
-      // Validate tab index before proceeding
       if (_selectedTabIndex < 0 || _selectedTabIndex >= _statusMap.length) {
         if (mounted) {
           setState(() {
