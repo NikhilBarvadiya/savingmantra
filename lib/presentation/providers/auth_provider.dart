@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savingmantra/data/datasources/local_storage.dart';
+import 'package:savingmantra/data/datasources/api_service.dart';
 import 'package:savingmantra/domain/repositories/auth/auth_repository.dart';
 import 'package:savingmantra/domain/repositories/auth/i_auth_repository.dart';
 
@@ -44,8 +44,7 @@ class AuthNotifier extends Notifier<AuthState> {
       final result = await _authRepository.sendOTP(phoneNumber, "client");
       if (result['ErrorMsg'] == "success" || result['ErrorMsg'] == "successsendtoregister") {
         final authToken = result['Auth'];
-        await LocalStorage.setToken(authToken);
-        await LocalStorage.setLoggedIn(true);
+        ApiService().token = authToken;
         state = state.copyWith(isLoading: false, phoneNumber: phoneNumber, authToken: result['Auth']);
       } else {
         throw Exception(result['ErrorMsg'] ?? 'Failed to send OTP');
@@ -77,8 +76,7 @@ class AuthNotifier extends Notifier<AuthState> {
       final result = await _authRepository.verifyOTP(state.authToken!, state.phoneNumber!, otp);
       if (result['ErrorMsg'] == "success") {
         final authToken = result['Auth'];
-        await LocalStorage.setToken(authToken);
-        await LocalStorage.setLoggedIn(true);
+        ApiService().token = authToken;
         state = state.copyWith(isLoading: false, authToken: authToken);
       } else {
         throw Exception(result['ErrorMsg'] ?? 'Invalid OTP');

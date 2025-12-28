@@ -5,6 +5,7 @@ import 'package:savingmantra/core/utils/app_toast.dart';
 import 'package:savingmantra/core/utils/validators.dart';
 import 'package:savingmantra/presentation/pages/auth/otp_verification.dart';
 import 'package:savingmantra/presentation/providers/auth_provider.dart';
+import 'package:savingmantra/presentation/router/app_routes.dart';
 import 'package:savingmantra/presentation/widgets/common/custom_button.dart';
 import 'package:savingmantra/presentation/widgets/common/custom_textfield.dart';
 
@@ -33,12 +34,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         }
         appToast.successToast(txt: 'OTP sent successfully!');
         if (mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OTPVerificationPage(isRegisterFlow: _isRegisterFlow, phoneNumber: phoneNumber),
-            ),
-          );
+          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.layout, (route) => false);
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => OTPVerificationPage(isRegisterFlow: _isRegisterFlow, phoneNumber: phoneNumber),
+          //   ),
+          // );
         }
       } catch (e) {
         appToast.internalServerError(e.toString());

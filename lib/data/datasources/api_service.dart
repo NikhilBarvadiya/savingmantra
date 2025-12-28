@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:savingmantra/core/constants/api_constants.dart';
-import 'package:savingmantra/data/datasources/local_storage.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -13,11 +12,12 @@ class ApiService {
   final Dio _dio = Dio(BaseOptions(baseUrl: ApiConstants.baseUrl, connectTimeout: ApiConstants.connectTimeout, receiveTimeout: ApiConstants.receiveTimeout, headers: ApiConstants.headers));
   var logger = Logger();
 
+  String token = "";
+
   void init() {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          final token = LocalStorage.getToken();
           if (token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }

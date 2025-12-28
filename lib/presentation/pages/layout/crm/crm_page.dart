@@ -14,7 +14,7 @@ class CRMPage extends StatefulWidget {
 class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
   final CrmRepository _crmRepository = CrmRepository();
 
-  bool _isLoadingMasters = true, _isLoadingList = false, _isSubmitting = false, _showAddForm = false;
+  bool _isLoadingMasters = true, _isLoadingList = false, _isSubmitting = false;
 
   List<Map<String, dynamic>> _crmTypes = [], _crmSources = [];
   List<Map<String, dynamic>> _crmStatuses = [], _crmList = [];
@@ -29,8 +29,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
   late final TextEditingController _newNotesController;
 
   String _searchQuery = '', _selectedStatusFilter = '';
-  int _currentTypeIndex = 0;
-
   String? _newSelectedTypeId, _newSelectedSourceId;
 
   late DateTime _newSelectedDate;
@@ -58,7 +56,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
     setState(() => _isLoadingMasters = true);
     try {
       await _loadMasters();
-      await _loadCRMList();
     } catch (e) {
       _showSnackBar('Failed to load data: $e', isError: true);
     } finally {
@@ -81,11 +78,15 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
         _tabController = TabController(length: _crmTypes.length, vsync: this, initialIndex: 0);
         _tabController!.addListener(() {
           if (!_tabController!.indexIsChanging && mounted) {
-            setState(() => _currentTypeIndex = _tabController!.index);
             _loadCRMList();
           }
         });
         _newSelectedTypeId = _crmTypes[0]['BusCRMTypeid'].toString();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _tabController!.index >= 0) {
+            _loadCRMList();
+          }
+        });
       }
     } catch (e) {
       rethrow;
@@ -93,7 +94,10 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
   }
 
   Future<void> _loadCRMList() async {
-    if (!mounted || _tabController == null) return;
+    if (!mounted || _tabController == null || _tabController!.index < 0 || _crmTypes.isEmpty) {
+      if (mounted) setState(() => _isLoadingList = false);
+      return;
+    }
     setState(() => _isLoadingList = true);
     try {
       final currentTypeId = _crmTypes[_tabController!.index]['BusCRMTypeid'];
@@ -143,7 +147,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
       await _loadCRMList();
       if (mounted) {
         setState(() {
-          _showAddForm = false;
           _isSubmitting = false;
         });
         _showSnackBar('✓ Contact added successfully!', isError: false);
@@ -253,27 +256,7 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      body: _isLoadingMasters ? _buildInitialLoading() : _buildMainContent(context),
-      floatingActionButton: !_isLoadingMasters ? _buildFAB(context) : null,
-    );
-  }
-
-  Widget _buildFAB(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    if (!isMobile) return const SizedBox.shrink();
-    return FloatingActionButton.extended(
-      onPressed: () => setState(() {
-        _showAddForm = !_showAddForm;
-        if (!_showAddForm) _clearForm();
-      }),
-      backgroundColor: Theme.of(context).primaryColor,
-      foregroundColor: Colors.white,
-      elevation: 6,
-      icon: Icon(_showAddForm ? Icons.close : Icons.add_rounded, size: 22),
-      label: Text(_showAddForm ? 'Close' : 'Add Contact', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
-    );
+    return Scaffold(backgroundColor: const Color(0xFFF8FAFC), body: _isLoadingMasters ? _buildInitialLoading() : _buildMainContent(context));
   }
 
   Widget _buildInitialLoading() {
@@ -313,17 +296,13 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (_showAddForm) ...[Expanded(flex: 2, child: _buildAddFormCard(context)), const SizedBox(width: 24)],
-                    Expanded(flex: _showAddForm ? 3 : 1, child: _buildContactsCard(context)),
+                    Expanded(flex: 2, child: _buildAddFormCard(context)),
+                    const SizedBox(width: 24),
+                    Expanded(flex: 3, child: _buildContactsCard(context)),
                   ],
                 )
               else
-                Column(
-                  children: [
-                    if (_showAddForm) ...[_buildAddFormCard(context), const SizedBox(height: 24)],
-                    _buildContactsCard(context),
-                  ],
-                ),
+                Column(children: [_buildAddFormCard(context), const SizedBox(height: 24), _buildContactsCard(context)]),
               const SizedBox(height: 100),
             ]),
           ),
@@ -388,7 +367,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
                       tooltip: 'Refresh',
                       color: const Color(0xFF6B7280),
                     ),
-                    IconButton(icon: const Icon(Icons.filter_list_rounded), onPressed: () {}, tooltip: 'Advanced Filters', color: const Color(0xFF6B7280)),
                   ],
                 ],
               ),
@@ -401,9 +379,9 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
 
   Widget _buildQuickStats(BuildContext context) {
     final totalEntries = _crmList.length;
-    final activeEntries = _crmList.where((c) => c['StatusName']?.toString().toLowerCase() == 'follow up').length;
-    final newEntries = _crmList.where((c) => c['StatusName']?.toString().toLowerCase() == 'new').length;
-    final closedEntries = _crmList.where((c) => c['StatusName']?.toString().toLowerCase() == 'close').length;
+    final activeEntries = _crmList.where((c) => ((c['StatusName'] ?? c['Status'] ?? c['BusCRMSalesStatusName'])?.toString() ?? '').toLowerCase() == 'follow up').length;
+    final newEntries = _crmList.where((c) => ((c['StatusName'] ?? c['Status'] ?? c['BusCRMSalesStatusName'])?.toString() ?? '').toLowerCase() == 'new').length;
+    final closedEntries = _crmList.where((c) => ((c['StatusName'] ?? c['Status'] ?? c['BusCRMSalesStatusName'])?.toString() ?? '').toLowerCase() == 'close').length;
     final isMobile = MediaQuery.of(context).size.width < 768;
     final stats = [
       _StatCard(icon: Icons.groups_rounded, label: 'Total Contacts', value: totalEntries.toString(), color: const Color(0xFF0E5E83), gradient: [const Color(0xFF0E5E83), const Color(0xFF1E88B7)]),
@@ -511,7 +489,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
                 IconButton(
                   icon: const Icon(Icons.close_rounded, size: 22),
                   onPressed: () => setState(() {
-                    _showAddForm = false;
                     _clearForm();
                   }),
                   color: const Color(0xFF6B7280),
@@ -764,19 +741,6 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
                   ],
                 ),
               ),
-              if (!isMobile && !_showAddForm)
-                ElevatedButton.icon(
-                  onPressed: () => setState(() => _showAddForm = true),
-                  icon: const Icon(Icons.add, size: 18),
-                  label: const Text('Add CRM', style: TextStyle(fontWeight: FontWeight.w400, letterSpacing: .5)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0E5E83),
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                ),
             ],
           ),
           const SizedBox(height: 20),
@@ -804,7 +768,10 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
           hintStyle: const TextStyle(fontSize: 14, color: Color(0xFF9CA3AF)),
           prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF6B7280), size: 22),
           suffixIcon: _searchQuery.isNotEmpty ? IconButton(icon: const Icon(Icons.close_rounded, size: 20), onPressed: () => _searchController.clear(), color: const Color(0xFF6B7280)) : null,
-          border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300, width: .8),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
       ),
@@ -858,7 +825,7 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
               children: [
                 Text(
                   label,
-                  style: TextStyle(color: isSelected ? Colors.white : color, fontSize: 13, fontWeight: FontWeight.w700),
+                  style: TextStyle(color: isSelected ? Colors.white : color, letterSpacing: .5, fontSize: 13, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(width: 8),
                 Container(
@@ -883,6 +850,7 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
       decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(12)),
       child: TabBar(
         controller: _tabController,
+        dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: BoxDecoration(
           color: Colors.white,
@@ -894,29 +862,10 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
         labelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
         unselectedLabelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         tabs: _crmTypes.map((type) {
-          final count = _crmList.where((crm) => crm['BusCRMTypeid'] == type['BusCRMTypeid']).length;
           return Tab(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(child: Text(type['CRMTypeName'] ?? '', maxLines: 1, overflow: TextOverflow.ellipsis)),
-                if (count > 0) ...[
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: _currentTypeIndex == _crmTypes.indexOf(type) ? const Color(0xFF0E5E83).withOpacity(0.15) : const Color(0xFF9CA3AF).withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      count.toString(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: _currentTypeIndex == _crmTypes.indexOf(type) ? const Color(0xFF0E5E83) : const Color(0xFF6B7280)),
-                    ),
-                  ),
-                ],
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(type['CRMTypeName'] ?? '', maxLines: 1, overflow: TextOverflow.ellipsis),
             ),
           );
         }).toList(),
@@ -940,6 +889,13 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
         return _buildContactCard(crm, isMobile);
       },
     );
+  }
+
+  String textConvert(String? value) {
+    if (value == null || value.isEmpty) {
+      return "---";
+    }
+    return value;
   }
 
   Widget _buildDesktopTable() {
@@ -1005,11 +961,11 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
               ),
             ],
             rows: _filteredCRMList.map((crm) {
-              final statusName = crm['StatusName'] ?? '';
+              final statusName = textConvert(crm['StatusName'] ?? crm['Status'] ?? crm['BusCRMSalesStatusName']);
               final statusColor = _getStatusColor(statusName);
-              final sourceName = crm['BusCRMSourceName'] ?? '-';
-              final followDate = crm['FollowDate'] ?? 'N/A';
-              final notes = crm['CRMNotes'] ?? '-';
+              final sourceName = textConvert(crm['BusCRMSourceName']);
+              final followDate = textConvert(crm['FollowDate']);
+              final notes = textConvert(crm['CRMNotes']);
               return DataRow(
                 cells: [
                   DataCell(
@@ -1149,7 +1105,7 @@ class _CRMPageState extends State<CRMPage> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildContactCard(Map<String, dynamic> crm, bool isMobile) {
-    final statusName = crm['StatusName'] ?? '';
+    final statusName = crm['StatusName'] ?? crm['Status'] ?? crm['BusCRMSalesStatusName'] ?? '';
     final statusColor = _getStatusColor(statusName);
     return Container(
       decoration: BoxDecoration(

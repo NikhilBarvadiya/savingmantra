@@ -16,8 +16,7 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
   final List<Map<String, dynamic>> _tasks = [];
   final TextEditingController _taskController = TextEditingController();
 
-  bool _isLoadingMasters = true, _isLoadingTasks = false;
-  bool _showAddForm = false, _isSubmitting = false;
+  bool _isLoadingMasters = true, _isLoadingTasks = false, _isSubmitting = false;
 
   DateTime _selectedDate = DateTime.now();
   int _selectedTabIndex = 0;
@@ -27,9 +26,17 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
     _tabController.addListener(_handleTabSelection);
-    _loadInitialData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // Ensure tab index is valid before loading data
+        if (_tabController.index < 0) {
+          _tabController.animateTo(0);
+        }
+        _loadInitialData();
+      }
+    });
   }
 
   @override
@@ -41,9 +48,11 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
   }
 
   void _handleTabSelection() {
-    if (_tabController.index != _selectedTabIndex) {
+    final newIndex = _tabController.index;
+    if (newIndex < 0 || newIndex == _selectedTabIndex) return;
+    if (mounted) {
       setState(() {
-        _selectedTabIndex = _tabController.index;
+        _selectedTabIndex = newIndex;
         _isLoadingTasks = true;
       });
       _fetchTasks();
@@ -70,6 +79,16 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
 
   Future<void> _fetchTasks() async {
     try {
+      // Validate tab index before proceeding
+      if (_selectedTabIndex < 0 || _selectedTabIndex >= _statusMap.length) {
+        if (mounted) {
+          setState(() {
+            _selectedTabIndex = 0;
+            _isLoadingTasks = false;
+          });
+        }
+        return;
+      }
       final formattedDate = DateFormat('d MMM yyyy').format(_selectedDate);
       final statusCode = _statusMap.values.elementAt(_selectedTabIndex);
       final response = await _todoRepository.getTodoList(planDate: formattedDate, planStatus: statusCode);
@@ -112,7 +131,6 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
         await _fetchTasks();
         if (mounted) {
           setState(() {
-            _showAddForm = false;
             _isSubmitting = false;
           });
           _showSnackBar('✓ Task added successfully!', isError: false);
@@ -211,27 +229,7 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      body: _isLoadingMasters ? _buildInitialLoading() : _buildMainContent(context),
-      floatingActionButton: !_isLoadingMasters ? _buildFAB(context) : null,
-    );
-  }
-
-  Widget _buildFAB(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    if (!isMobile) return const SizedBox.shrink();
-    return FloatingActionButton.extended(
-      onPressed: () => setState(() {
-        _showAddForm = !_showAddForm;
-        if (!_showAddForm) _taskController.clear();
-      }),
-      backgroundColor: Theme.of(context).primaryColor,
-      foregroundColor: Colors.white,
-      elevation: 6,
-      icon: Icon(_showAddForm ? Icons.close : Icons.add_rounded, size: 22),
-      label: Text(_showAddForm ? 'Close' : 'Add Task', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
-    );
+    return Scaffold(backgroundColor: const Color(0xFFF8FAFC), body: _isLoadingMasters ? _buildInitialLoading() : _buildMainContent(context));
   }
 
   Widget _buildInitialLoading() {
@@ -264,17 +262,13 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (_showAddForm) ...[Expanded(flex: 2, child: _buildAddTaskForm(context)), const SizedBox(width: 24)],
-                    Expanded(flex: _showAddForm ? 3 : 1, child: _buildTaskListPanel(context)),
+                    Expanded(flex: 2, child: _buildAddTaskForm(context)),
+                    const SizedBox(width: 24),
+                    Expanded(flex: 3, child: _buildTaskListPanel(context)),
                   ],
                 )
               else
-                Column(
-                  children: [
-                    if (_showAddForm) ...[_buildAddTaskForm(context), const SizedBox(height: 24)],
-                    _buildTaskListPanel(context),
-                  ],
-                ),
+                Column(children: [_buildAddTaskForm(context), const SizedBox(height: 24), _buildTaskListPanel(context)]),
               const SizedBox(height: 100),
             ]),
           ),
@@ -474,7 +468,7 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
                     _selectedDate = picked;
                     _isLoadingTasks = true;
                   });
-                  await _fetchTasks();
+                  WidgetsBinding.instance.addPostFrameCallback((_) => _fetchTasks());
                 }
               },
               borderRadius: BorderRadius.circular(12),
@@ -529,7 +523,6 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
                 IconButton(
                   icon: const Icon(Icons.close_rounded, size: 22),
                   onPressed: () => setState(() {
-                    _showAddForm = false;
                     _taskController.clear();
                   }),
                   color: const Color(0xFF6B7280),
@@ -629,19 +622,6 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
                   ],
                 ),
               ),
-              if (!isMobile && !_showAddForm)
-                ElevatedButton.icon(
-                  onPressed: () => setState(() => _showAddForm = true),
-                  icon: const Icon(Icons.add_rounded, size: 18),
-                  label: const Text('Add Task', style: TextStyle(fontWeight: FontWeight.w400, letterSpacing: .5)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0E5E83),
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                ),
             ],
           ),
           const SizedBox(height: 20),
@@ -659,6 +639,7 @@ class _TodoListPageState extends State<TodoListPage> with SingleTickerProviderSt
       decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(12)),
       child: TabBar(
         controller: _tabController,
+        dividerColor: Colors.transparent,
         indicator: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
